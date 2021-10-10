@@ -7,7 +7,7 @@
         
         // font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
         // Source : https://css-tricks.com/snippets/css/fluid-typography/
-        font-size: calc(16px + (22 - 16) * ((100vw - 300px) / (1200 - 300)));
+        font-size: calc($default-font-size + (22 - 16) * ((100vw - $min-width) / ($max-width - $min-width)));
     }
     
 }
