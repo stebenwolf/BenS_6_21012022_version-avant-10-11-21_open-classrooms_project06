@@ -1,9 +1,32 @@
+li {
+  list-style-type: none;
+}
+
 :root {
   font-size: 16px;
 }
 
 .font-small {
   font-size: 0.8rem;
+}
+
+.photograph-card {
+  margin: 10px;
+  padding: 10px;
+  width: calc(100% - 20px - 20px);
+  outline: 2px solid red;
+}
+
+.photograph-ID {
+  width: 50vw;
+  height: 50vw;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+
+.photograph-card h3 {
+  font-size: 2rem;
 }
 
 .hashtag {
@@ -22,10 +45,6 @@
 
 .hashtag::after {
   content: "\00a0";
-}
-
-nav li {
-  list-style-type: none;
 }
 
 @media screen and (max-width: 900px) {
