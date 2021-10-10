@@ -1,25 +1,32 @@
 ul, li {
-  margin: 5px;
+  margin: 2px 1px;
   padding: 0;
 }
 
 li {
   list-style-type: none;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 :root {
   font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .font-small {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+}
+
+.red-font {
+  color: #901C1C;
 }
 
 .photograph-card {
   margin: 10px;
   padding: 10px;
   width: calc(100% - 20px - 20px);
-  outline: 2px solid red;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -41,7 +48,8 @@ li {
 }
 
 .photograph-card h3 {
-  font-size: 2rem;
+  font-size: 1.9rem;
+  font-weight: 400;
   color: #D3573C;
 }
 
@@ -53,6 +61,15 @@ li {
   color: #525252;
 }
 
+.shadow {
+  -webkit-box-shadow: 0px 0px 5px #525252;
+          box-shadow: 0px 0px 5px #525252;
+}
+
+.photograph-card > * {
+  margin: 1px 2px;
+}
+
 .hashtag {
   color: #901C1C;
   border: 1px solid #525252;
@@ -61,16 +78,16 @@ li {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  font-weight: 600;
 }
 
 .hashtag::before {
   content: "#";
 }
 
-.hashtag::after {
-  content: "\00a0";
-}
-
+/* .hashtag::after {
+    content: "\00a0";
+} */
 @media screen and (max-width: 900px) {
   header {
     width: 50%;

@@ -4,12 +4,13 @@
     border-radius: 25px;
     padding: 2px 4px;
     width: fit-content;
+    font-weight: 600;
 }
 
 .hashtag::before {
     content: "#";
 }
 
-.hashtag::after {
+/* .hashtag::after {
     content: "\00a0";
-}
+} */
