@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AYAA,AAAA,GAAG,CAAC,EAAE,AAAA,QAAQ,CAAC;EACX,OAAO,EAAE,GAAG;CACf;;AAED,AAAA,GAAG,CAAC,EAAE,CAAC;EACH,eAAe,EAAC,IAAI;CACvB",
+    "mappings": "AYAA,AAAA,QAAQ,CAAC;EACL,KAAK,EXDK,OAAO;EWEjB,MAAM,EAAE,GAAG,CAAC,KAAK,CXCd,OAAO;EWAV,aAAa,EAAE,IAAI;EACnB,OAAO,EAAE,OAAO;EAChB,KAAK,EAAE,WAAW;CACrB;;AAED,AAAA,QAAQ,AAAA,QAAQ,CAAC;EACb,OAAO,EAAE,GAAG;CACf;;AAED,AAAA,QAAQ,AAAA,OAAO,CAAC;EACZ,OAAO,EAAE,OAAO;CACnB;;ACZD,AAAA,GAAG,CAAC,EAAE,CAAC;EACH,eAAe,EAAC,IAAI;CACvB",
     "sources": [
         "main.scss",
         "abstracts/_variables.scss",
@@ -14,6 +14,7 @@
         "components/_carousel.scss",
         "components/_cover.scss",
         "components/_dropdown.scss",
+        "components/_hashtags.scss",
         "layout/_navigation.scss",
         "layout/_grid.scss",
         "layout/_header.scss",

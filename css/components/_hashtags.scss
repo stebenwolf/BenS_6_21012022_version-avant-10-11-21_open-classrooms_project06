@@ -1,0 +1,15 @@
+.hashtag {
+    color: $primary-red;
+    border: 1px solid $grey;
+    border-radius: 25px;
+    padding: 2px 4px;
+    width: fit-content;
+}
+
+.hashtag::before {
+    content: "#";
+}
+
+.hashtag::after {
+    content: "\00a0";
+}
