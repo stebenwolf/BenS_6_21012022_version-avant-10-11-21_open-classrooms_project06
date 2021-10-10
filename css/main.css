@@ -28,10 +28,13 @@ nav li {
   list-style-type: none;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 900px) {
   header {
     width: 50%;
     outline: 2px solid yellowgreens;
+  }
+  main h2 {
+    font-size: calc(16px + (22 - 16) * ((100vw - 300px) / (1200 - 300)));
   }
 }
 /*# sourceMappingURL=main.css.map */
