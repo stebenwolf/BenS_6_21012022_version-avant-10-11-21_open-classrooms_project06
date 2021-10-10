@@ -94,13 +94,20 @@ li {
 /* .hashtag::after {
     content: "\00a0";
 } */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 600px) {
   header {
     width: 50%;
     outline: 2px solid yellowgreen;
   }
   main h2 {
     font-size: calc(16px + (22 - 16) * ((100vw - 300px) / (1200 - 300)));
+  }
+}
+
+@media screen and (min-width: 601px) {
+  header {
+    width: 75%;
+    outline: 2px solid yellowgreen;
   }
 }
 /*# sourceMappingURL=main.css.map */
