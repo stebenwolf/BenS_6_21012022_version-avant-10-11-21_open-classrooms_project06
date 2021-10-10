@@ -25,6 +25,7 @@ li {
 
 .photograph-card {
   margin: 10px;
+  margin-bottom: 25px;
   padding: 10px;
   width: calc(100% - 20px - 20px);
   display: -webkit-box;
@@ -45,6 +46,7 @@ li {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 50%;
+  margin-bottom: 20px;
 }
 
 .photograph-card h3 {
@@ -83,6 +85,10 @@ li {
 
 .hashtag::before {
   content: "#";
+}
+
+.hashtag:hover {
+  cursor: pointer;
 }
 
 /* .hashtag::after {

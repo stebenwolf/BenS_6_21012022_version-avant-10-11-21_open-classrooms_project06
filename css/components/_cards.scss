@@ -1,5 +1,6 @@
 .photograph-card {
     margin: 10px;
+    margin-bottom: 25px;
     padding: 10px;
     width: calc(100% - 20px - 20px);
     //outline: 2px solid red;
@@ -13,6 +14,7 @@
     height: 50vw;
     object-fit: cover;
     border-radius: 50%;
+    margin-bottom: 20px;
 }
 
 .photograph-card h3 {
