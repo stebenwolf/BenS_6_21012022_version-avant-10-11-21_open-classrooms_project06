@@ -63,8 +63,8 @@ li {
 }
 
 .shadow {
-  -webkit-box-shadow: 0px 0px 5px #525252;
-          box-shadow: 0px 0px 5px #525252;
+  -webkit-box-shadow: 0px 0px 10px #c4c4c4;
+          box-shadow: 0px 0px 10px #c4c4c4;
 }
 
 .photograph-card > * {
@@ -87,7 +87,7 @@ li {
 
 .hashtag {
   color: #901C1C;
-  border: 1px solid #525252;
+  border: 1px solid #c4c4c4;
   border-radius: 25px;
   padding: 2px 4px;
   width: -webkit-fit-content;
