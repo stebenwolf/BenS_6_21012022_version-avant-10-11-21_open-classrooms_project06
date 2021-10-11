@@ -102,6 +102,8 @@ li {
 
 .hashtag:hover {
   cursor: pointer;
+  background-color: #901C1C;
+  color: white;
 }
 
 /* .hashtag::after {
