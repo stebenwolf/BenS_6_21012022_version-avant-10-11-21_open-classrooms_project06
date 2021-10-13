@@ -1,15 +1,22 @@
 @media screen and (max-width: 600px) {    
     header {
         width: 50%;
-        outline: 2px solid yellowgreen;
-    }
+/*         outline: 2px solid yellowgreen;
+ */    }
     main h2 {
         
         // font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
         // Source : https://css-tricks.com/snippets/css/fluid-typography/
-        font-size: calc($default-font-size + (22 - 16) * ((100vw - $min-width) / ($max-width - $min-width)));
+        //font-size: calc($default-font-size + (22 - 16) * ((100vw - $min-width) / ($max-width - $min-width))); // ! ne pas diviser avec des unités!
+        font-size: calc(16px + (22 - 16) * ((100vw - 300px) / (1200 - 300)));
+/*         outline : 2px solid blue;
+ */     width: 45%;
+        order : 1;
+        font-weight: 400;
     }
     
+
+
 }
 
 @media screen and (min-width: 601px) {
