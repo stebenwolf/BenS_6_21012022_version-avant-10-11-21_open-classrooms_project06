@@ -33,7 +33,7 @@
 }
 
 .shadow {
-    box-shadow: 0px 0px 10px $intermediary-grey;
+    box-shadow: 2px 2px 12px $intermediary-grey;
 }
 
 .photograph-card > * {
@@ -42,8 +42,8 @@
 
 @media screen and (max-width: $breakpoint) {
     .photograph-ID {
-        width: 70vw;
-        height: 70vw;
+        width: 55vw;
+        height: 55vw;
     }
 }
 
