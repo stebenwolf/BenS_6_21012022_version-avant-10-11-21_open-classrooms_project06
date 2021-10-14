@@ -28,9 +28,6 @@
     nav {
         order: 3;
     }
-    
-
-
 }
 
 @media screen and (min-width: $breakpoint) {
@@ -48,12 +45,16 @@
         justify-content: end;
         //outline: 2px solid blue;
         font-weight: 400;
-        font-size: calc(16px + (22 - 16) * ((100vw - 300px) / (1200 - 300)));
+        font-size: 2rem;
         text-align: center;
     }
 
     nav {
+        justify-content: center;
         text-align: center;
     }
     
+    .logo {
+        font-size: 1.75rem;
+    }
 }

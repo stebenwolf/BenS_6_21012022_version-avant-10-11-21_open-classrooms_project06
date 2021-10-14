@@ -1,3 +1,26 @@
 html {
-    padding: 5%;
+    padding: 2% 5%;
+}
+
+@media screen and (max-width: $breakpoint) {
+    .photograph-cards {
+        margin-top: 10%;
+    }
+    
+}
+
+@media screen and (min-width: $breakpoint) {
+    .photograph-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 5%;
+    }
+
+    .photograph-card {
+
+        width: 25vw;
+        max-width: 33%;
+    }
+    
 }
