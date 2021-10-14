@@ -1,5 +1,4 @@
 .photograph-card {
-    
     margin-bottom: 50px;
     width: 100%;
     //outline: 2px solid red;
@@ -13,7 +12,7 @@
 .photograph-ID {
     object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 20px;
+    margin-bottom: -10px;
 }
 
 .photograph-card h3 {
@@ -21,6 +20,7 @@
     font-weight: 400;
     color: $coral-red;
     line-height: 2rem;
+    margin-bottom: 5px;
 }
 
 .location {

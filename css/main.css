@@ -48,7 +48,7 @@ a {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 20px;
+  margin-bottom: -10px;
 }
 
 .photograph-card h3 {
@@ -56,6 +56,7 @@ a {
   font-weight: 400;
   color: #D3573C;
   line-height: 2rem;
+  margin-bottom: 5px;
 }
 
 .location {
