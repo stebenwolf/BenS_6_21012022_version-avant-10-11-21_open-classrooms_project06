@@ -1,4 +1,4 @@
-@media screen and (max-width: 600px) { 
+@media screen and (max-width: $breakpoint) { 
     
     header {
         display: flex;
@@ -33,10 +33,27 @@
 
 }
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: $breakpoint) {
     header {
-        width: 75%;
-        outline: 2px solid yellowgreen;
-    }    
+        display: flex;
+        width: 100%;
+        //outline: 2px solid yellowgreen;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 5%;
+    }
+
+    header h2 {
+        display: inline-flex;
+        justify-content: end;
+        //outline: 2px solid blue;
+        font-weight: 400;
+        font-size: calc(16px + (22 - 16) * ((100vw - 300px) / (1200 - 300)));
+        text-align: center;
+    }
+
+    nav {
+        text-align: center;
+    }
     
 }

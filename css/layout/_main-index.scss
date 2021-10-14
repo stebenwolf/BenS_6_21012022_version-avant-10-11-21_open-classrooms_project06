@@ -1,7 +1,7 @@
 @media screen and (min-width: $breakpoint) {
     .photograph-cards {
         width: calc(100vw - 10vw);
-        padding: 5vw;
+        padding: 0vw;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -10,6 +10,6 @@
     .photograph-card {
         //outline: 2px solid blue;
         min-width: 250px;
-        max-width: 22vw;
+        max-width: 30vw;
     }
 }
