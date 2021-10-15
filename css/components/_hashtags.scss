@@ -1,0 +1,24 @@
+.hashtag {
+    color: $primary-red;
+    border: 1px solid $intermediary-grey;
+    border-radius: 25px;
+    padding: 4px 8px;
+    width: fit-content;
+    font-weight: 600;
+    margin: 3px 0;
+    font-size: 0.7rem;
+}
+
+.hashtag::before {
+    content: "#";
+}
+
+.hashtag:hover {
+    cursor: pointer;
+    background-color: $primary-red;
+    color: white;
+}
+
+/* .hashtag::after {
+    content: "\00a0";
+} */
