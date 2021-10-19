@@ -5,8 +5,12 @@
     padding: 4px 8px;
     width: fit-content;
     font-weight: 600;
-    margin: 3px 0;
+    margin: 3px 2px;
     font-size: 0.7rem;
+}
+
+header .hashtag {
+    margin: 3px 0;
 }
 
 .hashtag::before {
