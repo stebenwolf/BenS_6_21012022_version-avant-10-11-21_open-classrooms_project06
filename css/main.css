@@ -222,6 +222,63 @@ header .hashtag {
   }
 }
 
+.photograph-profile {
+  background-color: #FAFAFA;
+  margin: 0 20px;
+  padding: 1% 5%;
+  width: calc(100% - 40px - 10%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.photograph-pres {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  outline: 2px solid blue;
+}
+
+.photograph-description {
+  outline: 2px solid orange;
+}
+
+.photograph-contact {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  outline: 2px solid green;
+}
+
+.photograph-pic {
+  outline: 2px solid pink;
+}
+
+.photograph-pres > div {
+  width: 32%;
+}
+
+.photograph-profile h1 {
+  font-weight: 400;
+  font-size: 2.5rem;
+}
+
+.photographer-name {
+  color: #D3573C;
+}
+
 html {
   padding: 2% 5%;
 }

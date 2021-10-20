@@ -23,30 +23,44 @@
 </header>
 
 <main>
-    <section class="photograph-cards">
+    <section class="photograph-profile">
 
-        <article class="photograph-card font-small">
-            <a href="./photograph-01_mimi-keel.html">
+        <article class="photograph-pres">
+            <div class="photograph-description">
+
+                <h1 class="photographer-name">Mimi Keel</h1>
+                <p class="location">London, UK</p>
+                <p class="description">Voir le beau dans le quotidien</p>
+                <div class="tags">
+                    <ul>
+                        <li class="hashtag font-small">portrait</li>
+                        <li class="hashtag font-small">events</li>
+                        <li class="hashtag font-small">travel</li>
+                        <li class="hashtag font-small">animals</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="photograph-contact">
+                <button>Contactez-moi</button>
+            </div>
+            <div class="photograph-pic">
+
                 <picture>
                     <img class="photograph-ID shadow" src="./img/photograph-ID/MimiKeel.jpg" alt="Mimi Keel - Profile pic">
                 </picture>
-                <h3>Mimi Keel</h3>
-            </a>
-            <p class="location">London, UK</p>
-            <p class="description">Voir le beau dans le quotidien</p>
-            <p class="price">400&euro;/jour</p>
-            <div class="tags">
-                <ul>
-                    <li class="hashtag font-small">portrait</li>
-                    <li class="hashtag font-small">events</li>
-                    <li class="hashtag font-small">travel</li>
-                    <li class="hashtag font-small">animals</li>
-                </ul>
             </div>
         </article>
-        
-        
     </section>
+    
+    <section class="photograph-portfolio">
+        <label for="order-by">Trier par</label>
+        <select id="order-by" name="order-by">
+            <option value="popularity">Popularité</option>
+            <option value="date">Date</option>
+            <option value="title">Titre</option>
+        </select>
+    </section>
+        
         
     </main>    
     

@@ -1,0 +1,43 @@
+.photograph-profile {
+    background-color: $light-grey;
+    margin: 0 20px;
+    padding: 1% 5%;
+    width: calc(100% - 40px - 10%); 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.photograph-pres {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    outline: 2px solid blue;
+}
+
+.photograph-description {
+    outline: 2px solid orange;
+}
+
+.photograph-contact {
+    display: flex;
+    justify-content:left;
+    align-items: flex-start;
+    outline: 2px solid green;
+}
+
+.photograph-pic {
+    outline: 2px solid pink;
+}
+
+.photograph-pres > div {
+    width: 32%;
+}
+
+.photograph-profile h1 {
+    font-weight: 400;
+    font-size: 2.5rem;
+}
+
+.photographer-name {
+    color: $coral-red;
+}

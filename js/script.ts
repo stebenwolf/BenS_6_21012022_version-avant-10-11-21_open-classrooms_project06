@@ -87,7 +87,6 @@ function displayPhotoInfos(data: any) {
             pPriceArticle,
             tagsArticle
         );
-        
     }
 }
 
