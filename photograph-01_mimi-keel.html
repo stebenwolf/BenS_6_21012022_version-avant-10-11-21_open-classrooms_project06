@@ -27,10 +27,12 @@
 
         <article class="photograph-pres">
             <div class="photograph-description">
-
-                <h1 class="photographer-name">Mimi Keel</h1>
+                <div class="photographer-name-profile">
+                    <h1 class="photographer-name">Mimi Keel</h1>
+                    <button class="btn-contact">Contactez-moi</button>
+                </div>
                 <p class="location">London, UK</p>
-                <p class="description">Voir le beau dans le quotidien</p>
+                <p class="tagline">Voir le beau dans le quotidien</p>
                 <div class="tags">
                     <ul>
                         <li class="hashtag font-small">portrait</li>
@@ -41,7 +43,7 @@
                 </div>
             </div>
             <div class="photograph-contact">
-                <button>Contactez-moi</button>
+                
             </div>
             <div class="photograph-pic">
 
@@ -59,6 +61,21 @@
             <option value="date">Date</option>
             <option value="title">Titre</option>
         </select>
+    </section>
+
+    <section class="form-modal">
+        <header><h1>Contactez-moi<br>Mimi Keel</h1></header>
+        <form id="contact-modal" target="_self">
+            <label for="firstname">Prénom</label><br>
+            <input type="text"><br>
+            <label for="lastname">Nom</label><br>
+            <input type="text"><br>
+            <label for="email">Email</label><br>
+            <input type="email"><br>
+            <label for="message">Votre message</label><br>
+            <textarea></textarea><br>
+            <button class="btn-contact" type="submit">Envoyer</button>
+        </form>
     </section>
         
         
