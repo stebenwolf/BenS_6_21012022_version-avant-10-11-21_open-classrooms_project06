@@ -1,4 +1,4 @@
-import { PhotographCard } from "./script.js";
+import { PhotographCard } from "./photograph-card.js";
 class Photograph {
     constructor(id, name, city, country, tags, tagline, price, portrait) {
         this.id = id;
@@ -48,7 +48,7 @@ class Photograph {
     }
     // on souhaite maintenant pouvoir générer très facilement une carte photographe pour la page d'accueil, qui reprend donc les différents éléments et les agences comme il faut.
     generatePhotographCard() {
-        return new PhotographCard(this.name, this.portrait, this.tagline, this.price);
+        return new PhotographCard();
     }
 }
 // On exporte le module
