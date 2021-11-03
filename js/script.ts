@@ -41,9 +41,28 @@ function createPhotograph(item: any) {
 }
 
 // A partir des résultats de la requête asynchrone, on créé des profils photographes. 
-fetchDataAsync("photographers").then(function(resultats) {
+/* fetchDataAsync("photographers").then(function(resultats) {
     for (let item of resultats) {
         const photograph = createPhotograph(item);
         new PhotographCard().createPhotographCard(photograph);
+    }
+}); */
+
+let parameters = new URLSearchParams(document.location.search.substring(1));
+let profileID = parameters.get("id");
+let tag = parameters.get("tag");
+
+fetchDataAsync("photographers").then(function(resultats) {
+    for (let item of resultats) {
+        const photograph = createPhotograph(item);
+        if(profileID === null) {
+            if (tag === null) {
+                new PhotographCard().createPhotographCard(photograph);
+            } else if (photograph.tags.includes(tag)) {
+                new PhotographCard().createPhotographCard(photograph);
+            }
+        } else if (photograph.id === +profileID) {
+            new PhotographCard().createPhotographCard(photograph);
+        }
     }
 });
