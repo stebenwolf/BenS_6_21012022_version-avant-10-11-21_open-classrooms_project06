@@ -26,7 +26,7 @@ class PhotographCard {
             
         // on créé les classes et propriétés associées
         photoArticle.className = "photograph-card font-small";
-        linkArticle.href = "./"+photograph.getURL();
+        linkArticle.href = "./photograph.html?id="+photograph.id;
         imgArticle.className = "photograph-ID shadow";
         titleArticle.className = "photographer-name";
         pLocationArticle.className = "location";
