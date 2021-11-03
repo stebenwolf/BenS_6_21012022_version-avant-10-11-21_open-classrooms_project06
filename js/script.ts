@@ -1,14 +1,7 @@
 import {Photograph} from "./photograph.js";
+import {PhotographCard} from "./photograph-card.js";
 
-/* Fonction assez "lourde" qui va:
-1/ lire le document JSON
-2/ créer les différents composants du profil photographe
-3/ y insérer les données du fichier JSON
-4/ les agencer ensemble
-*/
-
-
-// Cette fonction va chercher les informations photographes du fichier JSON et appeler la fonction displayPhoto 
+/* // Cette fonction va chercher les informations photographes du fichier JSON et appeler la fonction displayPhoto 
 function fetchPhotoInfos() {
     fetch("../requirements/FishEyeData.json")
     .then(response => response.json())
@@ -19,65 +12,102 @@ function fetchPhotoInfos() {
 // Cette fonction affiche tous les profils de photographes de la liste "data"
 function displayPhotoInfos(data: any) {
     for (const q of data) {
-        //on sélectionne le conteneur
-        const photoSection = document.querySelector(".photograph-cards");
+        const photograph = new Photograph(q.id, q.name, q.city, q.country, q.tags, q.tagline, q.price, q.portrait);
+        const card = new PhotographCard().createPhotographCard(photograph);
+    }
+    return true; // histoire de renvoyer quelque chose?
+}
 
-        //on créé tous les éléments du profil
-        const photoArticle = document.createElement("article");
-        const linkArticle = document.createElement("a");
-        const pictureArticle = document.createElement("picture");
-        const imgArticle = document.createElement("img");
-        const titleArticle = document.createElement("h3");
-        const pLocationArticle = document.createElement("p");
-        const pDescriptionArticle = document.createElement("p");
-        const pPriceArticle = document.createElement("p");
-        const tagsArticle = document.createElement("div");
-        const tagsUlArticle = document.createElement("ul");
-            
-        // on créé les classes et propriétés associées
-        photoArticle.className = "photograph-card font-small";
-        linkArticle.href = "./photograph-01_mimi-keel.html";
-        imgArticle.className = "photograph-ID shadow";
-        titleArticle.className = "photographer-name";
-        pLocationArticle.className = "location";
-        pDescriptionArticle.className = "description";
-        pPriceArticle.className = "price";
-        tagsArticle.className = "tags";
-        for (let i=0; i<q.tags.length; i++) {
-            const tagsLiArticle = document.createElement("li");
-            tagsLiArticle.className = "hashtag font-small";
-            tagsLiArticle.innerHTML = q.tags[i];
-            tagsUlArticle.append(tagsLiArticle);
+fetchPhotoInfos(); */
+
+
+/* -------------------------------------------------------------------------------------- */
+/* POO below */
+/* -------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------- */
+
+// Qu'est-ce qu'on souhaite faire, et pourquoi ?
+/* On veut créer un objet "photographe" qui va nous permettre en une commande d'accéder à une valeur donnée. Par exemple, photographer.id renvoie l'ID du photograph, photographer.name renvoie le nom du photographe, etc. 
+*/
+/* Objets à créer :
+* un objet "Photographe"
+* un objet "carte photographe" pour la page d'accueil, avec les différents composants: image, titre (le nom du photographe), sous-titre, prix, ville, tags...
+* un objet "Media" avec les différentes photo d'un photographe; l'ID de la photo, l'ID du photographe, le titre de la photo, la date de prise de vue, le prix, etc.
+*/
+
+// Fonction asynchrone qui prend en input le type de données (photographe ou média), et renvoie les données JSON correspondantes.
+async function fetchDataAsync(type: string = ("photographers" || "media")) {
+    if(type === "photographers" || type === "media") {
+        try {
+            let response = await fetch("../requirements/FishEyeData.json");
+            let data = await response.json();
+            return data[type];
         }
-
-        // Sélectionner les données pour les insérer dans les éléments créés
-        photoArticle.setAttribute("id", q.id);
-        imgArticle.src = "./img/photograph-ID/"+q.portrait;
-        titleArticle.innerHTML = q.name;
-        pLocationArticle.innerHTML = q.city + ", " + q.country;
-        pDescriptionArticle.innerHTML = q.tagline;
-        pPriceArticle.innerHTML = q.price + "&euro;/jour";
-            
-        // attacher les éléments au bon endroit
-        photoSection.append(photoArticle);
-        pictureArticle.append(imgArticle);
-        linkArticle.append(pictureArticle, titleArticle);
-        tagsArticle.append(tagsUlArticle);
-        photoArticle.append(
-            linkArticle, 
-            pLocationArticle, 
-            pDescriptionArticle, 
-            pPriceArticle,
-            tagsArticle
-        );
+        catch(error) {
+            console.error("Erreur dans la fonction fetchDataAsync : ", error);
+        }
+    } else {
+        return console.log("Fonction fetchDataAsync : Argument invalide");
     }
 }
 
-fetchPhotoInfos();
+// Fonction qui créé les Photographes. Prend en entrée un tableau de résultats et renvoie un objet photographe.
+function createPhotograph(item: any) {
+    return new Photograph(
+            item.id,
+            item.name,
+            item.city,
+            item.country,
+            item.tags,
+            item.tagline,
+            item.price,
+            item.portrait
+    );
+}
+
+// A partir des résultats de la requête asynchrone, on créé des profils photographes. 
+fetchDataAsync("photographers").then(function(resultats) {
+    for (let item of resultats) {
+        const photograph = createPhotograph(item);
+        new PhotographCard().createPhotographCard(photograph);
+    }
+});
 
 
+
+function fetchSomePhotos(hashtag: string) {
+    const resultList: Array<any> = [];
+    fetch("../requirements/FishEyeData.json")
+    .then(response => response.json())
+    .then(data => {
+        for (const q of data.photographers) {
+            const request = q.tags.includes(hashtag);
+            if(request) {
+                resultList.push(q);
+            }
+        }
+        //return displayPhotoInfos(resultList);
+    })
+    .catch(error => console.error("Rohlalaaaa, la fauuuute! ", error));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* DIVERS */
 // Quand on sélectionne un hashtag, cette fonction renvoie les profils associés.
-function fetchSomePhotosHere(hashtag: string) {
+/* function fetchSomePhotosHere(hashtag: string) {
     const resultList: Array<any> = [];
     fetch("../requirements/FishEyeData.json")
     .then(response => response.json())
@@ -92,10 +122,7 @@ function fetchSomePhotosHere(hashtag: string) {
     })
     .catch(error => console.error("Rohlalaaaa, la fauuuute! ", error));
 }
-fetchSomePhotos("events");
-
-// Fin de la fonction "globale"
-
+fetchSomePhotos("events"); */
 
 
 // On souhaite disposer d'une fonction qui va récupérer l'ensemble des hashtags existants
@@ -156,113 +183,4 @@ function attachHashFunction() {
         });
         //console.log(allTags[i].attributes);
     }
-}
-
-
-
-
-
-
-
-
-/* -------------------------------------------------------------------------------------- */
-/* POO below */
-/* -------------------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------------------- */
-
-// Qu'est-ce qu'on souhaite faire, et pourquoi ?
-/* On veut créer un objet "photographe" qui va nous permettre en une commande d'accéder à une valeur donnée. Par exemple, photographer.id renvoie l'ID du photograph, photographer.name renvoie le nom du photographe, etc. 
-*/
-/* Objets à créer :
-* un objet "Photographe"
-* un objet "carte photographe" pour la page d'accueil, avec les différents composants: image, titre (le nom du photographe), sous-titre, prix, ville, tags...
-* un objet "Media" avec les différentes photo d'un photographe; l'ID de la photo, l'ID du photographe, le titre de la photo, la date de prise de vue, le prix, etc.
-*/
-
-
-let examplePhotograph = new Photograph(215,  "Bob", "Paris","US",["fun","not fun"], "always ever",400, "mimi");
-
-console.log(examplePhotograph.getCity());
-
-async function fetchDataAsync(type: string = ("photographers" || "media")) {
-    if(type === "photographers" || type === "media") {
-        try {
-            let response = await fetch("../requirements/FishEyeData.json");
-            let data = await response.json();
-            /* console.log("response: ",response);
-            console.log("data : ",data);
-            console.log("data.photogr", data[type]); */
-            return data[type];
-        }
-        catch(error) {
-            console.error("Erreur dans la fonction fetchDataAsync : ", error);
-        }
-    } else {
-        return console.log("Fonction fetchDataAsync : Argument invalide");
-    }
-}
-
-
-fetchDataAsync("photographers").then(function(resultats) {
-    createPhotograph(resultats);
-});
-
-function createPhotograph(resultats: Array<any>) {
-    console.log("Create photograph input: ",resultats);
-    for (let item of resultats) {
-        const photograph_infos = new Photograph(
-            item.id,
-            item.name,
-            item.city,
-            item.country,
-            item.tags,
-            item.tagline,
-            item.price,
-            item.portrait
-        );
-        console.log("Create photographs output :",photograph_infos);
-        console.log(photograph_infos.getName());
-        console.log(resultats[item].name);
-    }
-}
-
-
-async function fetchPhotographerAsync() {
-    try {
-        let response = await fetch("../requirements/FishEyeData.json");
-        let data = await response.json();
-        return data.photographers;
-    }
-    catch(error) {
-        console.error("Erreur dans la fonction fetchPhotographerAsync : ",error);
-    }
-}
-
-function fetchSomePhotos(hashtag: string) {
-    const resultList: Array<any> = [];
-    fetch("../requirements/FishEyeData.json")
-    .then(response => response.json())
-    .then(data => {
-        for (const q of data.photographers) {
-            const request = q.tags.includes(hashtag);
-            if(request) {
-                resultList.push(q);
-            }
-        }
-        //return displayPhotoInfos(resultList);
-    })
-    .catch(error => console.error("Rohlalaaaa, la fauuuute! ", error));
-}
-
-
-interface Photograph_card {
-    title: string
-}
-
-class Photograph_card {
-    constructor() {};
-    getTitle() {
-        return this.title;
-    }
-
 }
