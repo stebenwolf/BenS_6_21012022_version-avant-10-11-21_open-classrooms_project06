@@ -1,3 +1,5 @@
+import {PhotographCard} from "./script.js"
+
 // Création d'un objet "Photographe"
 /*Fichier JSON : "photographers": [
         {
@@ -40,7 +42,7 @@ class Photograph {
         this.portrait = portrait;
     }
 
-    // On a des méthodes pour accéder à chaque propriété. Se pose la question de: sont-elles nécessaires si on connaît déjà les keys?
+    /* // On a des méthodes pour accéder à chaque propriété. Se pose la question de: sont-elles nécessaires si on connaît déjà les keys?
     getId() {
         return this.id;
     }
@@ -64,7 +66,26 @@ class Photograph {
     }
     getPortrait() {
         return this.portrait;
+    } */
+
+    // cette méthode permet de générer de façon dynamique l'URL de la page de chaque photographe, sur le modèle : "photograph_XX_prenom_nom.html"
+    getURL() {
+        const url = 'photograph_' // préfixe d'URL photograph
+            + this.id // on intègre l'ID pour éviter doublons
+            + '_' // on sépare avec un _
+            + this.name // on récupère ensuite le nom
+            .toLowerCase() // on met le tout en minuscule
+            .replace(' ','_') // on va ensuite enlever les espaces et les remplacer par un _
+            + '.html'; // enfin on ajoute l'extension .html
+        return url;
     }
+
+    // on souhaite maintenant pouvoir générer très facilement une carte photographe pour la page d'accueil, qui reprend donc les différents éléments et les agences comme il faut.
+    generatePhotographCard() {
+        return new PhotographCard(this.name, this.portrait, this.tagline, this.price);
+    }
+
+
 }
 
 // On exporte le module
