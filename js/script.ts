@@ -73,19 +73,20 @@ fetchDataAsync("photographers").then(function(resultats) {
 
 fetchDataAsync("photographers").then(function(resultats) {
     for (let item of resultats) {
-        const photograph = createPhotograph(item);
-        new PhotographProfile().createPhotographProfile(photograph);
+        if (item.id == +profileID) {
+            const photograph = createPhotograph(item);
+            new PhotographProfile().createPhotographProfile(photograph);
+        }
     }
 });
 
 
 fetchDataAsync("media").then(function(resultats) {
-    console.log(resultats);
     for (let item of resultats) {
-        console.log(item);
-        const media = createMedia(item);
-        console.log("media: ",media);
-        new Gallery().createGallery(media);
+        if (item.photographerId == +profileID) {
+            const media = createMedia(item);
+            new Gallery().createGallery(media);
+        }
     }
 });
 
