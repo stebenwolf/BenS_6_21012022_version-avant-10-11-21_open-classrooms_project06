@@ -1,0 +1,15 @@
+.gallery {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    outline: 2px solid blue;
+    justify-content: left;
+    column-gap: 15px;
+    row-gap: 15px;
+}
+
+.vignette img {
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+}

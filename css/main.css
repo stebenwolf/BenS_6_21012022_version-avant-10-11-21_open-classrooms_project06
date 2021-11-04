@@ -136,6 +136,28 @@ header .hashtag {
 /* .hashtag::after {
     content: "\00a0";
 } */
+.gallery {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  outline: 2px solid blue;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
+  row-gap: 15px;
+}
+
+.vignette img {
+  background-size: cover;
+  width: 150px;
+  height: 150px;
+}
+
 @media screen and (max-width: 600px) {
   nav {
     width: 100%;
