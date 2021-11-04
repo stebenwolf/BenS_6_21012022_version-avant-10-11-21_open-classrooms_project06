@@ -1,5 +1,6 @@
 import { Photograph } from "./photograph.js";
 import { PhotographCard } from "./photograph-card.js";
+import { PhotographProfile } from "./photograph-profile.js";
 // Qu'est-ce qu'on souhaite faire, et pourquoi ?
 /* On veut créer un objet "photographe" qui va nous permettre en une commande d'accéder à une valeur donnée. Par exemple, photographer.id renvoie l'ID du photograph, photographer.name renvoie le nom du photographe, etc.
 */
@@ -52,6 +53,12 @@ fetchDataAsync("photographers").then(function (resultats) {
         else if (photograph.id === +profileID) {
             new PhotographCard().createPhotographCard(photograph);
         }
+    }
+});
+fetchDataAsync("photographers").then(function (resultats) {
+    for (let item of resultats) {
+        const photograph = createPhotograph(item);
+        new PhotographProfile().createPhotographProfile(photograph);
     }
 });
 //# sourceMappingURL=script.js.map
