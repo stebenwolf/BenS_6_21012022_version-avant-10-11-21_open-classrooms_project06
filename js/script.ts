@@ -1,6 +1,8 @@
 import {Photograph} from "./photograph.js";
 import {PhotographCard} from "./photograph-card.js";
 import { PhotographProfile } from "./photograph-profile.js";
+import {Gallery} from "./gallery.js";
+import {Media} from "./media.js";
 
 // Qu'est-ce qu'on souhaite faire, et pourquoi ?
 /* On veut créer un objet "photographe" qui va nous permettre en une commande d'accéder à une valeur donnée. Par exemple, photographer.id renvoie l'ID du photograph, photographer.name renvoie le nom du photographe, etc. 
@@ -75,3 +77,27 @@ fetchDataAsync("photographers").then(function(resultats) {
         new PhotographProfile().createPhotographProfile(photograph);
     }
 });
+
+
+fetchDataAsync("media").then(function(resultats) {
+    console.log(resultats);
+    for (let item of resultats) {
+        console.log(item);
+        const media = createMedia(item);
+        console.log("media: ",media);
+        new Gallery().createGallery(media);
+    }
+});
+
+function createMedia(item: any) {
+    return new Media(
+            item.id,
+            item.photographerId,
+            item.title,
+            item.image,
+            item.tags,
+            item.likes,
+            item.date,
+            item.price
+    );
+}
