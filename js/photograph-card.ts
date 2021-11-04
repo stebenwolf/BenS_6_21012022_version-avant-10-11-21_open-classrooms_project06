@@ -9,6 +9,7 @@ class PhotographCard {
     }
 
     createPhotographCard(photograph: Photograph) {
+      if(document.querySelector(".photograph-cards")) {
         //on sélectionne le conteneur
         const photoSection = document.querySelector(".photograph-cards");
 
@@ -61,6 +62,7 @@ class PhotographCard {
             tagsArticle
         );
     }
+}
 }
 
 
