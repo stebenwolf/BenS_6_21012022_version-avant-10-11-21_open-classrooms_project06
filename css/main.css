@@ -153,9 +153,10 @@ header .hashtag {
 }
 
 .vignette img {
-  background-size: cover;
   width: 150px;
   height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 @media screen and (max-width: 600px) {
