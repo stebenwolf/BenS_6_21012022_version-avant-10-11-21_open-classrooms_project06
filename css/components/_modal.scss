@@ -1,0 +1,25 @@
+#media-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $light-coral-red;
+    width: 50vw;
+    height: 50vh;
+}
+
+
+.modal-close {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: aqua;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}

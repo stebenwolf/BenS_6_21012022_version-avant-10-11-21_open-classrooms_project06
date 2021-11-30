@@ -143,7 +143,6 @@ header .hashtag {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  outline: 2px solid blue;
   -webkit-box-pack: left;
       -ms-flex-pack: left;
           justify-content: left;
@@ -152,11 +151,37 @@ header .hashtag {
   row-gap: 15px;
 }
 
-.vignette img {
-  width: 150px;
-  height: 150px;
+.vignette img, .vignette video {
+  width: 200px;
+  height: 200px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+#media-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #db8876;
+  width: 50vw;
+  height: 50vh;
+}
+
+.modal-close {
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  background-color: aqua;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
 
 @media screen and (max-width: 600px) {
@@ -344,13 +369,11 @@ header .hashtag {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  outline: 2px solid blue;
 }
 
-.photograph-description {
-  outline: 2px solid orange;
-}
-
+/* .photograph-description {
+    //outline: 2px solid orange;
+} */
 .photograph-description > .location {
   font-size: 1.4rem;
 }
@@ -369,13 +392,11 @@ header .hashtag {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  outline: 2px solid green;
 }
 
-.photograph-pic {
-  outline: 2px solid pink;
-}
-
+/* .photograph-pic {
+    //outline: 2px solid pink;
+} */
 .photograph-description {
   width: 67%;
 }
@@ -405,7 +426,6 @@ header .hashtag {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  outline: 2px solid greenyellow;
 }
 
 html {

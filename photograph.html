@@ -31,43 +31,18 @@
 <main>
     <section class="photograph-profile">
 
-        <!-- <article class="photograph-pres">
-            <div class="photograph-description">
-                <div class="photographer-name-profile">
-                    <h1 class="photographer-name">Mimi Keel</h1>
-                    <button class="btn-contact">Contactez-moi</button>
-                </div>
-                <p class="location">London, UK</p>
-                <p class="tagline">Voir le beau dans le quotidien</p>
-                <div class="tags">
-                    <ul>
-                        <li class="hashtag font-small">portrait</li>
-                        <li class="hashtag font-small">events</li>
-                        <li class="hashtag font-small">travel</li>
-                        <li class="hashtag font-small">animals</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="photograph-contact">
-                
-            </div>
-            <div class="photograph-pic">
-
-                <picture>
-                    <img class="photograph-ID shadow" src="./img/photograph-ID/MimiKeel.jpg" alt="Mimi Keel - Profile pic">
-                </picture>
-            </div>
-        </article> -->
     </section>
     
     <section class="photograph-portfolio">
-        <label for="order-by">Trier par</label>
-        <select id="order-by" name="order-by">
-            <option value="popularity">Popularité</option>
-            <option value="date">Date</option>
-            <option value="title">Titre</option>
-        </select>
-        <section class="gallery">
+        <form name="sortBy">
+            <label for="order-by">Trier par</label>
+            <select id="order-by" name="order-by">
+                <option value="popularity">Popularité</option>
+                <option value="date">Date</option>
+                <option value="title">Titre</option>
+            </select>
+        </form>
+        <section class="gallery" onload='sortedBy("likes");'>
 
         </section>
     </section>
@@ -85,6 +60,17 @@
             <textarea></textarea><br>
             <button class="btn-contact" type="submit">Envoyer</button>
         </form>
+    </section>
+
+    <section id="media-modal" class="hidden">
+        <div class="modal-close">
+            X
+        </div>
+        <figure class="media-modal--figure">
+            <figcaption class="media-modal--figcaption">
+
+            </figcaption>
+        </figure>
     </section>
         
         
