@@ -9,7 +9,7 @@
     <script src="./js/script.js" type="module"></script>
 </head>
 
-<body>
+<body id="profile">
 
 <header>
     <div class="logo">
@@ -19,13 +19,6 @@
             </h1>
         </a>
     </div>
-
-    <nav>
-        
-    </nav>
-
-    <h2 class="red-font">Nos photographes</h2>
-
 </header>
 
 <main>
@@ -42,12 +35,12 @@
                 <option value="title">Titre</option>
             </select>
         </form>
-        <section class="gallery" onload='sortedBy("likes");'>
+        <section class="gallery">
 
         </section>
     </section>
 
-    <section class="form-modal">
+    <section id="form-modal" class="form-modal hidden">
         <header><h1>Contactez-moi<br>Mimi Keel</h1></header>
         <form id="contact-modal" target="_self">
             <label for="firstname">Prénom</label><br>

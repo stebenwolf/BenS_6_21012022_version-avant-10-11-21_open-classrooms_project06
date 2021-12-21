@@ -11,12 +11,12 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    outline: 2px solid blue;
+    //outline: 2px solid blue;
 }
 
-.photograph-description {
-    outline: 2px solid orange;
-}
+/* .photograph-description {
+    //outline: 2px solid orange;
+} */
 
 .photograph-description > .location {
     font-size: 1.4rem;
@@ -30,12 +30,12 @@
     display: flex;
     justify-content:left;
     align-items: flex-start;
-    outline: 2px solid green;
+    //outline: 2px solid green;
 }
 
-.photograph-pic {
-    outline: 2px solid pink;
-}
+/* .photograph-pic {
+    //outline: 2px solid pink;
+} */
 
 .photograph-description {
     width: 67%;
@@ -61,5 +61,5 @@
     display: inline-flex;
     flex-wrap: nowrap;
     align-items: center;
-    outline: 2px solid greenyellow;
+    //outline: 2px solid greenyellow;
 }
