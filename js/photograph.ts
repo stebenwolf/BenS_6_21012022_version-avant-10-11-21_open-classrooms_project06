@@ -1,3 +1,5 @@
+import {Modal} from "./modal.js";
+
 interface Photograph { // requis pour TS
     id: number;
     name: string;
@@ -48,6 +50,7 @@ class Photograph {
             photoArticle.className = "photograph-card font-small";
             linkArticle.href = "./photograph.html?id="+this.id;
             imgArticle.className = "photograph-ID shadow";
+            imgArticle.alt = this.name;
             titleArticle.className = "photographer-name";
             pLocationArticle.className = "location";
             pDescriptionArticle.className = "description";
@@ -122,7 +125,8 @@ class Photograph {
             }
             contactArticle.className = "photograph-contact";
             picArticle.className = "photograph-pic";
-            imgArticle.className = "photograph-ID shadow";        
+            imgArticle.className = "photograph-ID profile-ID shadow";
+            imgArticle.alt = this.name;        
 
             // Sélectionner les données pour les insérer dans les éléments créés
             titleArticle.innerHTML = this.name;
@@ -130,8 +134,24 @@ class Photograph {
             pLocationArticle.innerHTML = this.city + ", " + this.country;
             pTaglineArticle.innerHTML = this.tagline;
             imgArticle.src = "./img/photograph-ID/"+this.portrait;
-        
 
+
+            // ajout : un petit bandeau en bas de page qui indique le nombre total de likes et le TJ photographe
+            const bottomInfos = document.createElement("div");
+            const bottomInfosLikes = document.createElement("span");
+            const bottomInfosTJ = document.createElement("span");
+
+            bottomInfos.id = "bottomInfos";
+            bottomInfosLikes.id = "bottomInfosLikes";
+            bottomInfosTJ.id = "bottomInfosTJ";
+
+            bottomInfosLikes.innerHTML = "";
+            bottomInfosTJ.innerHTML = this.price + "&euro; / jour";
+
+            const body = document.querySelector("body");
+            bottomInfos.append(bottomInfosLikes, bottomInfosTJ);
+            body.append(bottomInfos);
+        
             // attacher les éléments au bon endroit
             photoSection.append(photoArticle);
                 photoArticle.append(
@@ -154,6 +174,23 @@ class Photograph {
                     picArticle.append(pictureArticle);
                         pictureArticle.append(imgArticle);
                             pictureArticle.append(imgArticle);
+
+            // on ajoute la méthode pour lancer la modale contact
+            buttonArticle.addEventListener("click", () => {
+
+                let formModal = document.querySelector("#form-modal");
+                if (formModal) {
+                    formModal.remove();
+                }
+
+                const contactModal = new Modal(this.id);
+                const modal = contactModal.createContactModal(this.name);
+                const html = document.querySelector("html");
+
+                const body = document.querySelector("body");
+                body.setAttribute("class", "bg-opacity");
+                html.append(modal);
+            });
         }
     }
 }
