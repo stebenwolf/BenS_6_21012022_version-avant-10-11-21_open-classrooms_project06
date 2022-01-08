@@ -1,5 +1,6 @@
 import { Photograph } from "./photograph.js";
 import { Media } from "./media.js";
+import { Modal } from "./modal.js";
 
 
 // La classe GALLERY gère l'affichage d'une série d'éléments, soit les profils des différents photographes sur la page d'accueil, soit la liste des médias d'un photographe sur sa page dédiée.
@@ -153,20 +154,70 @@ class GalleryOfMedias extends Gallery {
         const gallerySection = document.querySelector(".gallery");
         gallerySection.innerHTML="";
 
+        let howManyLikes = 0;
+        let hasBeenLiked: any = [];
+        
         // Pour chaque élément de la liste, on créé l'objet associé
-        console.log(list.length);
-        for (let item of list) {
-            const media = new Media(item.id, 
-                item.photographerId, 
-                item.title, 
-                item.image, 
-                item.tags, 
-                item.likes, 
-                item.date, 
-                item.price);
+        for (let i=0;i<list.length;i++) {
+            
+            const media = new Media(list[i].id, 
+                list[i].photographerId, 
+                list[i].title, 
+                list[i].image, 
+                list[i].tags, 
+                list[i].likes, 
+                list[i].date, 
+                list[i].price);
+
+            howManyLikes += list[i].likes;
+            hasBeenLiked.push(0);
+            
             media.createMedia();
-            media.openModal();
+            
+            const mediaFigures = document.querySelectorAll(".media");
+            mediaFigures.forEach(element => {
+                element.addEventListener("click", (event) => {
+                    // si une modale est déjà ouverte, on la ferme
+                let lightbox = document.querySelector(".lightbox-modal");
+                if (lightbox) {
+                    lightbox.remove();
+                }
+
+                // puis on créé une modale ligthing modal
+                let mediaModal = new Modal(list[i].photographerId);
+                const modal = mediaModal.createMediaModal(list, i);
+
+                // et on masque le fond de la page
+                const body = document.querySelector("body");
+                body.setAttribute("class", "bg-opacity--full");
+                body.append(modal);
+                event.stopImmediatePropagation();
+                })
+            });
+
         }
+
+        const bottomInfosLikes = document.getElementById("bottomInfosLikes");
+        bottomInfosLikes.innerHTML = String(howManyLikes);
+
+        const mediaLikes = document.querySelectorAll(".media-likes");
+        let moreLikes = 0;
+        mediaLikes.forEach((element, index) => {
+            // on stocke le nombre de likes initial, de façon à limiter l'incrémentation à 1 même en cas de clics multiples
+            const initialValue = +element.textContent;
+            
+            element.addEventListener("click", (event) => {
+                //console.log("clicked on "+element.previousElementSibling.textContent);
+                
+                element.innerHTML = String(initialValue + 1) ;// + 1;
+                hasBeenLiked[index] = 1;
+                event.stopImmediatePropagation();                    
+
+                moreLikes = hasBeenLiked.reduce((x: number, y: number) => x+y);
+                bottomInfosLikes.innerHTML = String(howManyLikes+moreLikes);
+            });
+        });           
+        
         return list;
     }
 
@@ -205,76 +256,6 @@ class GalleryOfMedias extends Gallery {
         });
         return byDate;
     }
-
-
-
-    getPreviousMedia(list: any, actualMedia: any) {
-        const listLength = list.length;
-
-    }
-
-    getNextMedia(list: any, actualMedia: any) {
-        const listLength = list.length;
-    }
-
-
 }
 
 export {Gallery, GalleryOfPhotographs, GalleryOfMedias}
-
-
-/* // La méthode displayPresNav va générer un bloc de contenu qui permet de naviguer d'une slide à une autre. Il prend en paramètre un numéro de slide, correspondant à la slide en cours d'affichage. Le bloc de contenu comprend trois zones : la zone avec la flèche "retour", la zone avec la flèche "suivant", et entre les deux un point cliquable pour chaque slide.
-    displayPresNav(actualSlide: number) {
-        const presFooter = document.createElement("footer");
-        presFooter.setAttribute("class","presFooter");
-        presFooter.setAttribute("id","presNav");
-
-        // attention, il y a peut être une subtilité à prendre en compte entre le numéro de la page (numérotation qui commence à 0) et le nombre total de slides (numérotation normale)
-
-        // on génère trois spans : 1 span pour la flèche précédent, 1 span pour les points, 1 span pour la flèche après
-        const prevNavSpan = this.prevNav(actualSlide);
-        const dotsNavSpan = this.dotNav(actualSlide);
-        const nextNavSpan = this.nextNav(actualSlide);
-
-        presFooter.append(prevNavSpan, dotsNavSpan, nextNavSpan);
-        return presFooter;
-    }
-
-    // Cette méthode prend en entrée la page actuelle sur laquelle on se trouve. Lorsqu'on clique sur la flèche produite, elle génère simplement la slide précédente.
-    prevNav(actualSlide: number) {
-        const prevNavSpan = document.createElement("span");
-        
-        prevNavSpan.setAttribute("id","prevNavPresentation");
-        prevNavSpan.innerHTML = "&lt; ";//"&#8656; ";
-        prevNavSpan.addEventListener("click",() => {
-            this.startPres(actualSlide-1);
-        });
-
-        if (actualSlide == 0) {
-            prevNavSpan.style.visibility = "hidden";
-        } else {
-            prevNavSpan.style.cursor = "pointer";
-        }
-        
-        return prevNavSpan;
-    }
-
-    // Cette méthode prend en entrée la page actuelle sur laquelle on se trouve. Lorsqu'on clique sur la flèche produite, elle génère simplement la slide suivante.
-    nextNav(actualSlide: number) {
-        const totalLength = this.arrayOfSlides.length;
-        const nextNavSpan = document.createElement("span");
-
-        nextNavSpan.setAttribute("id","nextNavPresentation");
-        nextNavSpan.innerHTML = " &gt;";//" &#8658;";
-        nextNavSpan.addEventListener("click",() => {
-            this.startPres(actualSlide+1);
-        });
-        
-        if (actualSlide == totalLength - 1) {
-            nextNavSpan.style.visibility = "hidden";
-        } else {
-            nextNavSpan.style.cursor = "pointer";
-        }
-        return nextNavSpan;
-    }
-    */

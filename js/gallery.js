@@ -1,5 +1,6 @@
 import { Photograph } from "./photograph.js";
 import { Media } from "./media.js";
+import { Modal } from "./modal.js";
 // La classe GALLERY gère l'affichage d'une série d'éléments, soit les profils des différents photographes sur la page d'accueil, soit la liste des médias d'un photographe sur sa page dédiée.
 // la classe "mère" va récupérer les données dans un fichier JSON, procédure commune aux deux types de galeries
 // elle se décompose ensuite en deux sous-classes : une première qui va traiter le cas spécifique de la galerie photographes, et la seconde qui va s'occuper exclusivement des photos et vidéos d'un artiste donné.
@@ -44,20 +45,20 @@ class GalleryOfPhotographs extends Gallery {
             const photograph = new Photograph(item.id, item.name, item.city, item.country, item.tags, item.tagline, item.price, item.portrait);
             if (type == "profile") {
                 if (item.id == profileID) {
-                    return photograph.createPhotographProfile(photograph);
+                    return photograph.createPhotographProfile();
                 }
             }
             else if (type == "index") {
                 if (profileID === null) {
                     if (tag === null) {
-                        photograph.createPhotographCard(photograph);
+                        photograph.createPhotographCard();
                     }
                     else if (photograph.tags.includes(tag)) {
-                        photograph.createPhotographCard(photograph);
+                        photograph.createPhotographCard();
                     }
                 }
                 else if (photograph.id === +profileID) {
-                    photograph.createPhotographCard(photograph);
+                    photograph.createPhotographCard();
                 }
             }
         }
@@ -116,13 +117,49 @@ class GalleryOfMedias extends Gallery {
         // On efface le contenu déjà présent
         const gallerySection = document.querySelector(".gallery");
         gallerySection.innerHTML = "";
+        let howManyLikes = 0;
+        let hasBeenLiked = [];
         // Pour chaque élément de la liste, on créé l'objet associé
-        console.log(list.length);
-        for (let item of list) {
-            const media = new Media(item.id, item.photographerId, item.title, item.image, item.tags, item.likes, item.date, item.price);
-            media.createMedia(media);
-            media.openModal(media);
+        for (let i = 0; i < list.length; i++) {
+            const media = new Media(list[i].id, list[i].photographerId, list[i].title, list[i].image, list[i].tags, list[i].likes, list[i].date, list[i].price);
+            howManyLikes += list[i].likes;
+            hasBeenLiked.push(0);
+            media.createMedia();
+            const mediaFigures = document.querySelectorAll(".media");
+            mediaFigures.forEach(element => {
+                element.addEventListener("click", (event) => {
+                    // si une modale est déjà ouverte, on la ferme
+                    let lightbox = document.querySelector(".lightbox-modal");
+                    if (lightbox) {
+                        lightbox.remove();
+                    }
+                    // puis on créé une modale ligthing modal
+                    let mediaModal = new Modal(list[i].photographerId);
+                    const modal = mediaModal.createMediaModal(list, i);
+                    // et on masque le fond de la page
+                    const body = document.querySelector("body");
+                    body.setAttribute("class", "bg-opacity--full");
+                    body.append(modal);
+                    event.stopImmediatePropagation();
+                });
+            });
         }
+        const bottomInfosLikes = document.getElementById("bottomInfosLikes");
+        bottomInfosLikes.innerHTML = String(howManyLikes);
+        const mediaLikes = document.querySelectorAll(".media-likes");
+        let moreLikes = 0;
+        mediaLikes.forEach((element, index) => {
+            // on stocke le nombre de likes initial, de façon à limiter l'incrémentation à 1 même en cas de clics multiples
+            const initialValue = +element.textContent;
+            element.addEventListener("click", (event) => {
+                //console.log("clicked on "+element.previousElementSibling.textContent);
+                element.innerHTML = String(initialValue + 1); // + 1;
+                hasBeenLiked[index] = 1;
+                event.stopImmediatePropagation();
+                moreLikes = hasBeenLiked.reduce((x, y) => x + y);
+                bottomInfosLikes.innerHTML = String(howManyLikes + moreLikes);
+            });
+        });
         return list;
     }
     // Pour les trois méthodes ci-dessous, on prend en paramètre une liste (celle des résultats de la requête JSON), et on renvoit la liste triée : soit par nombre de likes, soit par titre, soit par date.
