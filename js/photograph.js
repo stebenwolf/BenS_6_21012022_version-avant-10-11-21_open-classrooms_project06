@@ -127,7 +127,7 @@ class Photograph {
             pictureArticle.append(imgArticle);
             // on ajoute la méthode pour lancer la modale contact
             buttonArticle.addEventListener("click", () => {
-                let formModal = document.querySelector("#form-modal");
+                const formModal = document.querySelector("#form-modal");
                 if (formModal) {
                     formModal.remove();
                 }

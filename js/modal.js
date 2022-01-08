@@ -5,7 +5,7 @@ class Modal {
     }
     createContactModal(name) {
         //on créé d'abord l'ensemble des éléments dont on a besoin
-        let contactModalSection = document.createElement("section");
+        const contactModalSection = document.createElement("section");
         contactModalSection.id = "form-modal";
         contactModalSection.className = "form-modal shadow";
         const contactModalHeader = document.createElement("header");
@@ -56,6 +56,13 @@ class Modal {
             contactModalSection.remove();
             const body = document.querySelector("body");
             body.removeAttribute("class");
+        });
+        const body = document.querySelector("body");
+        body.addEventListener("keydown", (event) => {
+            if (event.code === "Escape") {
+                contactModalSection.remove();
+                body.removeAttribute("class");
+            }
         });
         contactModalButton.addEventListener("click", function (e) {
             e.preventDefault();
@@ -116,7 +123,7 @@ class Modal {
         const body = document.querySelector("body");
         // si previousMedia existe, on affiche une flèche à gauche
         if (previousMedia) {
-            let previousMediaLink = document.createElement("p");
+            const previousMediaLink = document.createElement("p");
             previousMediaLink.innerHTML = "<";
             previousMediaLink.className = "mediaControl previousMedia";
             // on ajoute un event listener: au clic, on supprime la modale actuelle et on la remplace par la modale précédente
@@ -124,11 +131,23 @@ class Modal {
                 mediaModalSection.remove();
                 body.append(this.createMediaModal(list, i - 1));
             });
+            // idem si on clique sur la flèche gauche
+            //! Problème: génère 36.000 sections au lieu de les supprimer l'une après l'autre...
+            /* const createPrevious = this.createMediaModal(list, i-1);
+
+            function handleArrowLeft(event: KeyboardEvent) {
+                if (event.code === "ArrowLeft") {
+                    mediaModalSection.remove();
+                    body.append(createPrevious);
+                    body.removeEventListener("keydown", handleArrowLeft);
+                }
+            } */
+            //body.addEventListener("keydown", handleArrowLeft);
             mediaModalSection.append(previousMediaLink);
         }
         //si nextMedia existe, on affiche une flèche à droite
         if (nextMedia) {
-            let nextMediaLink = document.createElement("p");
+            const nextMediaLink = document.createElement("p");
             nextMediaLink.innerHTML = ">";
             nextMediaLink.className = "mediaControl nextMedia";
             // on ajoute un event listener: au clic, on supprime la première modale et on la remplace par la modale suivante
@@ -136,6 +155,14 @@ class Modal {
                 mediaModalSection.remove();
                 body.append(this.createMediaModal(list, i + 1));
             });
+            // idem si on clique sur la flèche droite
+            //! Même problème qu'avec précédent : finit par générer 36.000 modales "lightbox".
+            /* body.addEventListener("keydown", (event) => {
+                if (event.code === "ArrowRight") {
+                    mediaModalSection.remove();
+                    body.append(this.createMediaModal(list, i+1));
+                }
+            }); */
             mediaModalSection.append(nextMediaLink);
         }
         // on créé un event listener qui gère la fermeture de la modale lorsqu'on clique sur la croix
@@ -143,6 +170,17 @@ class Modal {
             mediaModalSection.remove();
             body.removeAttribute("class");
         });
+        // idem, si on clique sur le bouton "Echap"
+        if (mediaModalSection) {
+            body.addEventListener("keydown", handleEscape);
+        }
+        function handleEscape(event) {
+            if (event.code === "Escape") {
+                mediaModalSection.remove();
+                body.removeAttribute("class");
+                body.removeEventListener("keydown", handleEscape);
+            }
+        }
         return mediaModalSection;
     }
 }

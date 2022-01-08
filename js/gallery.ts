@@ -15,8 +15,8 @@ class Gallery {
     async fetchDataAsync(type: string = ("photographers" || "media")) {
         if(type === "photographers" || type === "media") {
             try {
-                let response = await fetch("../requirements/FishEyeData.json");
-                let data = await response.json();
+                const response = await fetch("../requirements/FishEyeData.json");
+                const data = await response.json();
                 return data[type];
             }
             catch(error) {
@@ -43,13 +43,13 @@ class GalleryOfPhotographs extends Gallery {
     // et renvoie à partir de là l'ensemble des informations nécessaires à la réalisation :
     // - soit des cartes des photographes sur la page d'accueil si le type vaut "index"
     // - soit pour chaque photographe du bandeau d'informations de sa page de profile 
-    showThem(results: any, type: "index" | "profile") {
-        let parameters = new URLSearchParams(document.location.search.substring(1));
-        let profileID = parameters.get("id");
-        let tag = parameters.get("tag");
+    showThem(results: Photograph[] = [], type: "index" | "profile") {
+        const parameters = new URLSearchParams(document.location.search.substring(1));
+        const profileID = parameters.get("id");
+        const tag = parameters.get("tag");
         
         // pour chaque élément de results, on créé un objet Photograph qui contient l'ensemble des informatiins dont on a besoin.
-        for (let item of results) {
+        for (const item of results) {
             const photograph = new Photograph(
                 item.id,
                 item.name,
@@ -62,7 +62,7 @@ class GalleryOfPhotographs extends Gallery {
             );
 
             if (type == "profile") {
-                if(item.id == profileID) {
+                if(item.id == +profileID) {
                     return photograph.createPhotographProfile();
                 }
             } else if (type == "index") {
@@ -82,12 +82,12 @@ class GalleryOfPhotographs extends Gallery {
     // cette méthode doit retrouver, à partir d'un simple id, les infos relatives à un photographe et créer l'objet associé.
     createPhotograph(id: number) {
 
-        let type = new GalleryOfPhotographs;
+        const type = new GalleryOfPhotographs;
         type.displayGallery(type)
         let photograph: Photograph;
         
         type.fetchDataAsync("photographers").then(results => {
-            for(let item of results) {
+            for(const item of results) {
                 if (item.id == id) {
                     console.log("item trouvé!");
                     photograph = new Photograph(
@@ -120,42 +120,46 @@ class GalleryOfMedias extends Gallery {
     // Cette méthode prend en entrée le résultat de la requête asynchrone
     // ...et renvoie à partir de ça l'ensemble des informations nécessaires, avec la condition "id page" = "id photographe"
     // Ce qu'on veut aussi, c'est qu'à chaque fois qu'on modifie le tri, la liste se mette à jour.
-    showThemAll(results: any) {
+    showThemAll(results: Media[] = []) {
     
-        let parameters = new URLSearchParams(document.location.search.substring(1));
-        let profileID = parameters.get("id");
+        const parameters = new URLSearchParams(document.location.search.substring(1));
+        const profileID = parameters.get("id");
 
         // on créé une liste contenant uniquement les résultats qui nous intéressent
-        let list:any = [];
-        for (let item of results) {
+        const list:Array<Media> = [];
+        for (const item of results) {
             if (item.photographerId == +profileID) {
                 list.push(item);
             }
         }
                 
-        let selectTracker = <HTMLInputElement>document.getElementById("order-by");
+        const selectTracker = <HTMLInputElement>document.getElementById("order-by");
         this.sortedList(list, selectTracker.value);
         selectTracker.addEventListener("change", () => this.showThemAll(results)); // Pour le event Listener, on relance cette méthode plutôt que la méthode "liste triée". A voir quel impact en termes de performance : les variables paramètres, profileID et la liste ne changent pas, seul l'ordre de la liste évolue.
     }
 
-    sortedList(list: any, sortingStyle: any) {
+    sortedList(list: Media[], sortingStyle: string) {
         switch (sortingStyle) {
             case "popularity":
                 list = this.sortByLikes(list);
                 break;
             case "date":
-                list= this.sortByDate(list);
+                list = this.sortByDate(list);
                 break;
             case "title":
                 list = this.sortByName(list);
+                break;
+            default:
+                console.error("Erreur lors du tri.");
         }
+        
 
         // On efface le contenu déjà présent
         const gallerySection = document.querySelector(".gallery");
         gallerySection.innerHTML="";
 
         let howManyLikes = 0;
-        let hasBeenLiked: any = [];
+        const hasBeenLiked: Array<number> = [];
         
         // Pour chaque élément de la liste, on créé l'objet associé
         for (let i=0;i<list.length;i++) {
@@ -178,13 +182,13 @@ class GalleryOfMedias extends Gallery {
             mediaFigures.forEach(element => {
                 element.addEventListener("click", (event) => {
                     // si une modale est déjà ouverte, on la ferme
-                let lightbox = document.querySelector(".lightbox-modal");
+                const lightbox = document.querySelector(".lightbox-modal");
                 if (lightbox) {
                     lightbox.remove();
                 }
 
                 // puis on créé une modale ligthing modal
-                let mediaModal = new Modal(list[i].photographerId);
+                const mediaModal = new Modal(list[i].photographerId);
                 const modal = mediaModal.createMediaModal(list, i);
 
                 // et on masque le fond de la page
@@ -227,30 +231,30 @@ class GalleryOfMedias extends Gallery {
     // inorganik
 
     // Cette fonction prend en entrée une liste et renvoie la liste triée par nombre de likes par ordre décroissant
-    sortByLikes(list: any) {
+    sortByLikes(list: Array<Media>) {
         // "resultats" est un array d'objets, et on veut pouvoir trier les objets en fonction de la valeur d'une de leurs clés
-        let byLikes = list.slice(0); // on copie la liste initiale
-        byLikes.sort(function(a: any, b: any) {
+        const byLikes = list.slice(0); // on copie la liste initiale
+        byLikes.sort(function(a: {likes : number }, b: {likes : number }) {
             return b.likes - a.likes; // on trie la nouvelle liste par ordre décroissant
         });
         return byLikes;
     }
 
     // cette fonction prend en entrée une liste et renvoie la liste triée par ordre alphabétique croissant
-    sortByName(list: any) {
-        let byName = list.slice(0);
-        byName.sort(function(a: any,b: any) {
-            let x = a.title.toLowerCase();
-            let y = b.title.toLowerCase();
+    sortByName(list: Array<Media>) {
+        const byName = list.slice(0);
+        byName.sort(function(a: {title: string}, b: {title: string}) {
+            const x = a.title.toLowerCase();
+            const y = b.title.toLowerCase();
             return x < y ? -1 : x > y ? 1 : 0;
         });
         return byName;
     }
 
-    // cette fonction prend en entrée une liste et renvoie la liste triée par ordre antichronologique
-    sortByDate(list: any) {
-        let byDate = list.slice(0);
-        byDate.sort(function(a:any,b:any) {
+    // cette fonction prend en entrée une liste de médias et renvoie la liste triée par ordre antichronologique
+    sortByDate(list: Media[]): Media[] {
+        const byDate = list.slice(0);
+        byDate.sort((a: any, b: any) => {
             // pour trier les dates qui sont actuellement au format string "YYYY-MM-DD", on compare leur timestamp via un Date.parse(), sans changer le format de la variable.
             return Date.parse(b.date) - Date.parse(a.date);
         });
