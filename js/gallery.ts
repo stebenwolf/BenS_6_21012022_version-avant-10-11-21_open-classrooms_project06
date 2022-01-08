@@ -254,6 +254,7 @@ class GalleryOfMedias extends Gallery {
     // cette fonction prend en entrée une liste de médias et renvoie la liste triée par ordre antichronologique
     sortByDate(list: Media[]): Media[] {
         const byDate = list.slice(0);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         byDate.sort((a: any, b: any) => {
             // pour trier les dates qui sont actuellement au format string "YYYY-MM-DD", on compare leur timestamp via un Date.parse(), sans changer le format de la variable.
             return Date.parse(b.date) - Date.parse(a.date);
