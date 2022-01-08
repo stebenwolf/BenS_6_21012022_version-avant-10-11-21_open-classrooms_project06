@@ -1,0 +1,100 @@
+
+
+@media screen and (max-width: $breakpoint) {
+
+    .photograph-profile {
+        width: calc(95vw - 4%);
+        padding: 2%;
+    }
+
+    .btn-contact {
+        position: fixed;
+        left: 50%;
+        bottom: 40px;
+        transform: translateX(-50%);
+        padding: 3% 4%;
+    }
+
+    .photograph-pres {
+        display: flex;
+        justify-content: stretch;
+    }
+
+    .profile-ID {
+        width: 27vw;
+        height: 27vw;
+    }
+
+    .sortBy {
+        display: none;
+    }
+
+    .description {
+        color: $darker-grey;
+    }
+
+}
+
+@media screen and (min-width: $breakpoint) {
+
+    .photograph-profile {
+        background-color: $light-grey;
+        margin: 0 20px;
+        padding: 1% 5%;
+        width: calc(100% - 40px - 10%); 
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .photograph-pres {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        //outline: 2px solid blue;
+    }
+    
+    
+}
+
+
+
+.photograph-description > .location {
+    font-size: 1.4rem;
+}
+
+.tagline {
+    color: $grey;
+}
+
+.photograph-contact {
+    display: flex;
+    justify-content:left;
+    align-items: flex-start;
+}
+
+.photograph-description {
+    width: 67%;
+}
+
+.photograph-profile h1 {
+    font-weight: 400;
+    font-size: 2.5rem;
+    margin: 0;
+    margin-right: 30px;
+}
+
+.photographer-name {
+    color: $coral-red;
+}
+
+.photograph-description > .photographer-name {
+    margin: 0;
+    margin-bottom: -5px;
+}
+
+.photographer-name-profile {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    //outline: 2px solid greenyellow;
+}

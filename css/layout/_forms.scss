@@ -1,0 +1,22 @@
+
+
+
+select#order-by {
+    width: fit-content;
+    padding: 12px 20px;
+    background-color: $primary-red;
+    border: none;
+    color: white;
+}
+
+.select-option {
+    border-bottom: 1px solid white;
+}
+
+select option {
+    color: white
+}
+
+select option::after {
+    border: 1px solid yellow;
+}

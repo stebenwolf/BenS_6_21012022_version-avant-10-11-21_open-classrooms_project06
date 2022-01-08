@@ -1,10 +1,17 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2020",
+        "module": "esnext",
+        "target": "esnext",
         "jsx": "preserve",
         "checkJs": true,
-        "strictFunctionTypes": true
+        "strictFunctionTypes": true,
+        "noImplicitAny": true,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false
     },
     "exclude": [
         "node_modules",

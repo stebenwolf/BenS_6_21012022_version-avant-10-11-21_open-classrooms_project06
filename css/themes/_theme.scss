@@ -1,8 +1,8 @@
-html {
-    padding: 2% 5%;
-}
-
 @media screen and (max-width: $breakpoint) {
+    body {
+        padding: 2% 1%;
+    }
+
     .photograph-cards {
         margin-top: 10%;
     }
@@ -10,6 +10,10 @@ html {
 }
 
 @media screen and (min-width: $breakpoint) {
+    body {
+        padding: 2% 5%;
+    }
+
     .photograph-cards {
         display: flex;
         flex-wrap: wrap;

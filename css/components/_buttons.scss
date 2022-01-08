@@ -1,0 +1,15 @@
+.btn-contact {
+    background-color: $primary-red;
+    border: none;
+    padding: 20px 15px;
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+}
+
+.btn-contact:hover {
+    background-color: $light-coral-red;
+    color: black;
+    cursor: pointer;
+}
