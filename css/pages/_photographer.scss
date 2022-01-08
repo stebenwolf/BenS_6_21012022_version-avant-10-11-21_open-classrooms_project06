@@ -1,22 +1,62 @@
-.photograph-profile {
-    background-color: $light-grey;
-    margin: 0 20px;
-    padding: 1% 5%;
-    width: calc(100% - 40px - 10%); 
-    display: flex;
-    flex-wrap: wrap;
+
+
+@media screen and (max-width: $breakpoint) {
+
+    .photograph-profile {
+        width: calc(95vw - 4%);
+        padding: 2%;
+    }
+
+    .btn-contact {
+        position: fixed;
+        left: 50%;
+        bottom: 40px;
+        transform: translateX(-50%);
+        padding: 3% 4%;
+    }
+
+    .photograph-pres {
+        display: flex;
+        justify-content: stretch;
+    }
+
+    .profile-ID {
+        width: 27vw;
+        height: 27vw;
+    }
+
+    .sortBy {
+        display: none;
+    }
+
+    .description {
+        color: $darker-grey;
+    }
+
 }
 
-.photograph-pres {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    //outline: 2px solid blue;
+@media screen and (min-width: $breakpoint) {
+
+    .photograph-profile {
+        background-color: $light-grey;
+        margin: 0 20px;
+        padding: 1% 5%;
+        width: calc(100% - 40px - 10%); 
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .photograph-pres {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        //outline: 2px solid blue;
+    }
+    
+    
 }
 
-/* .photograph-description {
-    //outline: 2px solid orange;
-} */
+
 
 .photograph-description > .location {
     font-size: 1.4rem;
@@ -30,12 +70,7 @@
     display: flex;
     justify-content:left;
     align-items: flex-start;
-    //outline: 2px solid green;
 }
-
-/* .photograph-pic {
-    //outline: 2px solid pink;
-} */
 
 .photograph-description {
     width: 67%;
