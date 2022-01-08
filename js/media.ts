@@ -37,6 +37,9 @@ class Media {
                 mediaZone = document.createElement("video");
                 mediaZone.setAttribute("width","150px");
                 mediaZone.setAttribute("height", "150px");
+                mediaZone.setAttribute("preload", "none");
+                mediaZone.setAttribute("poster","./img/"+this.photographerId+"/poster/"+this.image+".jpg");
+                //poster="one-does-not-simply-placeholder.jpg"")
                 const videoSourceZone = document.createElement("source");
                 videoSourceZone.type = "video/mp4";
                 videoSourceZone.src = "./img/"+this.photographerId+"/"+this.image;
@@ -45,6 +48,7 @@ class Media {
                 mediaZone =  document.createElement("picture");
                 const imgZone = document.createElement("img");
                 imgZone.src = "./img/"+this.photographerId+"/"+this.image;
+                imgZone.loading = "lazy";
                 imgZone.alt = this.title;
                 mediaZone.append(imgZone);
             }
