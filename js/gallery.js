@@ -11,7 +11,7 @@ class Gallery {
     async fetchDataAsync(type = ("photographers" || "media")) {
         if (type === "photographers" || type === "media") {
             try {
-                const response = await fetch("../requirements/FishEyeData.json");
+                const response = await fetch("./requirements/FishEyeData.json");
                 const data = await response.json();
                 return data[type];
             }
