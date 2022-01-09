@@ -286,16 +286,6 @@ header .hashtag {
   display: none;
 }
 
-.bg-opacity > * {
-  -webkit-filter: opacity(0.5);
-          filter: opacity(0.5);
-}
-
-.bg-opacity--full > * {
-  -webkit-filter: opacity(0);
-          filter: opacity(0);
-}
-
 .form-modal {
   position: fixed;
 }
@@ -315,6 +305,14 @@ header .hashtag {
     z-index: 10;
     -webkit-filter: opacity(1);
             filter: opacity(1);
+  }
+  .bg-opacity > * {
+    -webkit-filter: opacity(0.5);
+            filter: opacity(0.5);
+  }
+  .bg-opacity--full > * {
+    -webkit-filter: opacity(0);
+            filter: opacity(0);
   }
 }
 
@@ -486,7 +484,7 @@ header .hashtag {
 
 @media screen and (max-width: 600px) {
   nav {
-    width: 100%;
+    width: 100vw;
     margin: auto;
     text-align: center;
   }
@@ -722,6 +720,10 @@ select option::after {
   .photograph-cards {
     margin-top: 10%;
   }
+  .logo img {
+    width: 40vw;
+    padding: 0 2vw;
+  }
 }
 
 @media screen and (min-width: 700px) {
@@ -742,6 +744,10 @@ select option::after {
   .photograph-card {
     width: 25vw;
     max-width: 33%;
+  }
+  .logo img {
+    margin-top: 15px;
+    width: 16vw;
   }
 }
 /*# sourceMappingURL=main.css.map */
