@@ -32,6 +32,16 @@
 
 @media screen and (min-width: $breakpoint) {
     
+    
+
+    .bg-opacity > * {
+        filter: opacity(0.5);
+    }
+    
+    .bg-opacity--full > * {
+        filter: opacity(0);
+    }
+
     .lightbox-modal {
         position: fixed;
         top: 50%;
@@ -45,13 +55,7 @@
         filter: opacity(1);
     }
 
-    .bg-opacity > * {
-        filter: opacity(0.5);
-    }
     
-    .bg-opacity--full > * {
-        filter: opacity(0);
-    }
 }
 
 .media-modal--figure img, .lightbox-modal video {

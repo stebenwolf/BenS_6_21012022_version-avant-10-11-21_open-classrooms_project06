@@ -295,6 +295,14 @@ header .hashtag {
 }
 
 @media screen and (min-width: 700px) {
+  .bg-opacity > * {
+    -webkit-filter: opacity(0.5);
+            filter: opacity(0.5);
+  }
+  .bg-opacity--full > * {
+    -webkit-filter: opacity(0);
+            filter: opacity(0);
+  }
   .lightbox-modal {
     position: fixed;
     top: 50%;
@@ -309,14 +317,6 @@ header .hashtag {
     z-index: 10;
     -webkit-filter: opacity(1);
             filter: opacity(1);
-  }
-  .bg-opacity > * {
-    -webkit-filter: opacity(0.5);
-            filter: opacity(0.5);
-  }
-  .bg-opacity--full > * {
-    -webkit-filter: opacity(0);
-            filter: opacity(0);
   }
 }
 
