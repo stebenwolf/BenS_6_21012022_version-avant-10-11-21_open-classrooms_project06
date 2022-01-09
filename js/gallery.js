@@ -40,9 +40,16 @@ class GalleryOfPhotographs extends Gallery {
         const parameters = new URLSearchParams(document.location.search.substring(1));
         const profileID = parameters.get("id");
         const tag = parameters.get("tag");
+        const allHashtags = [];
         // pour chaque élément de results, on créé un objet Photograph qui contient l'ensemble des informations dont on a besoin.
         for (const item of results) {
             const photograph = new Photograph(item.id, item.name, item.city, item.country, item.tags, item.tagline, item.price, item.portrait);
+            for (const thatTag of item.tags) {
+                console.log(thatTag);
+                if (!allHashtags.includes(thatTag)) {
+                    allHashtags.push(thatTag);
+                }
+            }
             if (type == "profile") {
                 if (item.id == +profileID) {
                     return photograph.createPhotographProfile();
@@ -147,8 +154,10 @@ class GalleryOfMedias extends Gallery {
                 });
             });
         }
+        // ici on créé un bandeau visible sur desktop qui contient le nombre total de likes d'un photographe, ainsi que son TJ
         const bottomInfosLikes = document.getElementById("bottomInfosLikes");
         bottomInfosLikes.innerHTML = String(howManyLikes);
+        // on veut également que le nombre de likes augmente lorsqu'on like une photo
         const mediaLikes = document.querySelectorAll(".media-likes");
         let moreLikes = 0;
         mediaLikes.forEach((element, index) => {
