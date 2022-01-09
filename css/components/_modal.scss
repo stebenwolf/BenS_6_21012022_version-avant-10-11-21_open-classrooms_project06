@@ -24,13 +24,7 @@
     display: none;
 }
 
-.bg-opacity > * {
-    filter: opacity(0.5);
-}
 
-.bg-opacity--full > * {
-    filter: opacity(0);
-}
 
 .form-modal {
     position: fixed;
@@ -49,6 +43,14 @@
         display: grid;
         z-index: 10;
         filter: opacity(1);
+    }
+
+    .bg-opacity > * {
+        filter: opacity(0.5);
+    }
+    
+    .bg-opacity--full > * {
+        filter: opacity(0);
     }
 }
 

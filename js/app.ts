@@ -1,5 +1,4 @@
 import { GalleryOfPhotographs, GalleryOfMedias } from "./gallery.js";
-import { Photograph } from "./photograph.js";
 
 /* La classe APP génère le contenu de la page demandée : 
 - si on est sur la page index.html, elle génère le bandeau supérieur, la zone avec les hashtags, et la galerie des profils de photographes;
@@ -27,7 +26,7 @@ class App {
     //Cette méthode va générer le contenu spécifique à la page index.html, à savoir... lancer une galerie de photographes. Utile alors? Pas si on avait juste la page index, mais avec la page photographe ça peut...
     buildIndexHTML() {
         const galleryOfPhotographs = new GalleryOfPhotographs;
-        return galleryOfPhotographs.displayGallery(galleryOfPhotographs);
+        return galleryOfPhotographs.displayGallery();
     }
 
     // Cette méthode va générer le contenu spécifique à la page photograph.html, à savoir:
@@ -36,11 +35,11 @@ class App {
     buildPhotographHTML() {
         // On créé la zone "infos photographe"
         const photographerInfos = new GalleryOfPhotographs;
-        photographerInfos.displayInfos(photographerInfos);
+        photographerInfos.displayInfos();
         
         // et la zone "galerie de médias"
         const galleryOfMedias = new GalleryOfMedias;
-        galleryOfMedias.displayGallery(galleryOfMedias);
+        galleryOfMedias.displayGallery();
         
         return true;
     }

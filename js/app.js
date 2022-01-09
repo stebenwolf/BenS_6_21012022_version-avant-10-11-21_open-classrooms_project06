@@ -23,7 +23,7 @@ class App {
     //Cette méthode va générer le contenu spécifique à la page index.html, à savoir... lancer une galerie de photographes. Utile alors? Pas si on avait juste la page index, mais avec la page photographe ça peut...
     buildIndexHTML() {
         const galleryOfPhotographs = new GalleryOfPhotographs;
-        return galleryOfPhotographs.displayGallery(galleryOfPhotographs);
+        return galleryOfPhotographs.displayGallery();
     }
     // Cette méthode va générer le contenu spécifique à la page photograph.html, à savoir:
     // - un cadre "infos photographe"
@@ -31,10 +31,10 @@ class App {
     buildPhotographHTML() {
         // On créé la zone "infos photographe"
         const photographerInfos = new GalleryOfPhotographs;
-        photographerInfos.displayInfos(photographerInfos);
+        photographerInfos.displayInfos();
         // et la zone "galerie de médias"
         const galleryOfMedias = new GalleryOfMedias;
-        galleryOfMedias.displayGallery(galleryOfMedias);
+        galleryOfMedias.displayGallery();
         return true;
     }
 }
