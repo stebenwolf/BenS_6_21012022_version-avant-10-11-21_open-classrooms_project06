@@ -119,7 +119,7 @@ a {
   font-size: 0.7rem;
 }
 
-.hashtag a {
+.hashtag a, .hashtag a:visited {
   color: #901C1C;
 }
 
