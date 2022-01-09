@@ -119,6 +119,10 @@ a {
   font-size: 0.7rem;
 }
 
+.hashtag a {
+  color: #901C1C;
+}
+
 header .hashtag {
   margin: 3px 0;
 }
