@@ -26,11 +26,11 @@ class Gallery {
 }
 class GalleryOfPhotographs extends Gallery {
     //Cette méthode prend en entrée un objet "Galerie de photographes", cherche les données correspondantes dans le fichier json, et appelle la fonction showThemAll.
-    displayGallery(type) {
-        type.fetchDataAsync("photographers").then(results => this.showThem(results, "index"));
+    displayGallery() {
+        this.fetchDataAsync("photographers").then(results => this.showThem(results, "index"));
     }
-    displayInfos(type) {
-        type.fetchDataAsync("photographers").then(results => this.showThem(results, "profile"));
+    displayInfos() {
+        this.fetchDataAsync("photographers").then(results => this.showThem(results, "profile"));
     }
     // Cette méthode prend en entrée le résultat de la requête asynchrone
     // et renvoie à partir de là l'ensemble des informations nécessaires à la réalisation :
@@ -40,7 +40,7 @@ class GalleryOfPhotographs extends Gallery {
         const parameters = new URLSearchParams(document.location.search.substring(1));
         const profileID = parameters.get("id");
         const tag = parameters.get("tag");
-        // pour chaque élément de results, on créé un objet Photograph qui contient l'ensemble des informatiins dont on a besoin.
+        // pour chaque élément de results, on créé un objet Photograph qui contient l'ensemble des informations dont on a besoin.
         for (const item of results) {
             const photograph = new Photograph(item.id, item.name, item.city, item.country, item.tags, item.tagline, item.price, item.portrait);
             if (type == "profile") {
@@ -66,7 +66,7 @@ class GalleryOfPhotographs extends Gallery {
     // cette méthode doit retrouver, à partir d'un simple id, les infos relatives à un photographe et créer l'objet associé.
     createPhotograph(id) {
         const type = new GalleryOfPhotographs;
-        type.displayGallery(type);
+        type.displayGallery();
         let photograph;
         type.fetchDataAsync("photographers").then(results => {
             for (const item of results) {
@@ -81,8 +81,8 @@ class GalleryOfPhotographs extends Gallery {
 }
 class GalleryOfMedias extends Gallery {
     //Cette méthode prend en entrée un objet "Galerie de médias", cherche les données correspondantes dans le fichier json, et appelle la fonction showThemAll.
-    displayGallery(type) {
-        type.fetchDataAsync("media").then(results => {
+    displayGallery() {
+        this.fetchDataAsync("media").then(results => {
             this.showThemAll(results);
         });
     }
