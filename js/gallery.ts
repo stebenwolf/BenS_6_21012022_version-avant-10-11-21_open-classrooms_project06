@@ -47,7 +47,7 @@ class GalleryOfPhotographs extends Gallery {
         const parameters = new URLSearchParams(document.location.search.substring(1));
         const profileID = parameters.get("id");
         const tag = parameters.get("tag");
-        const allHashtags: any = [];
+        const allHashtags: Array<string> = [];
 
         // pour chaque élément de results, on créé un objet Photograph qui contient l'ensemble des informations dont on a besoin.
         for (const item of results) {
