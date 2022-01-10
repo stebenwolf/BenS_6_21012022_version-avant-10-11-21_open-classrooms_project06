@@ -140,6 +140,7 @@ class Modal {
         
         const mediaModalSection = document.createElement("section");
         mediaModalSection.className = "lightbox-modal";
+        mediaModalSection.id = "lightbox";
         mediaModalSection.setAttribute("aria-label","image closeup view");
 
         const media = list[i];
@@ -187,33 +188,33 @@ class Modal {
         const body = document.querySelector("body");
 
         // si previousMedia existe, on affiche une flèche à gauche
+        
         if(previousMedia) { 
             const previousMediaLink = document.createElement("p");
             previousMediaLink.innerHTML = "<";
+            //previousMediaLink.id = "previousMedia";
             previousMediaLink.className = "mediaControl previousMedia";
+            
             // on ajoute un event listener: au clic, on supprime la modale actuelle et on la remplace par la modale précédente
             previousMediaLink.addEventListener("click", () => 
             {
-                mediaModalSection.remove();
+                const lightbox = document.getElementById("lightbox");
+                lightbox.remove();
                 body.append(this.createMediaModal(list, i-1));
             });
 
-            // idem si on clique sur la flèche gauche
-            //! Problème: génère 36.000 sections au lieu de les supprimer l'une après l'autre...
-            /* const createPrevious = this.createMediaModal(list, i-1);
-
-            function handleArrowLeft(event: KeyboardEvent) {
+            // on ajoute un event listener pour la flèche cette fois, qui s'applique alors à l'ensemble de la page.
+            window.addEventListener("keydown", event => {
+                const lightbox = document.getElementById("lightbox");
                 if (event.code === "ArrowLeft") {
-                    mediaModalSection.remove();
-                    body.append(createPrevious);
-                    body.removeEventListener("keydown", handleArrowLeft);
+                    lightbox.remove();
+                    body.append(this.createMediaModal(list, i-1));
                 }
-            } */
-
-            //body.addEventListener("keydown", handleArrowLeft);
+            });
             
             mediaModalSection.append(previousMediaLink);
         }
+
         //si nextMedia existe, on affiche une flèche à droite
         if (nextMedia) {
             const nextMediaLink = document.createElement("p");
@@ -227,14 +228,14 @@ class Modal {
                 body.append(this.createMediaModal(list, i+1));
             });
                         
-            // idem si on clique sur la flèche droite
-            //! Même problème qu'avec précédent : finit par générer 36.000 modales "lightbox".
-            /* body.addEventListener("keydown", (event) => {
+            // on ajoute un event listener pour la flèche cette fois, qui s'applique alors à l'ensemble de la page.
+            window.addEventListener("keydown", event => {
+                const lightbox = document.getElementById("lightbox");
                 if (event.code === "ArrowRight") {
-                    mediaModalSection.remove();
+                    lightbox.remove();
                     body.append(this.createMediaModal(list, i+1));
                 }
-            }); */
+            });
 
             mediaModalSection.append(nextMediaLink);
         }
