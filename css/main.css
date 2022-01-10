@@ -131,7 +131,7 @@ header .hashtag {
   content: "#";
 }
 
-.hashtag:hover {
+.hashtag:hover, .hashtag:hover a {
   cursor: pointer;
   background-color: #901C1C;
   color: white;
@@ -740,9 +740,8 @@ select option::after {
     display: flex;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     margin-top: 5%;
   }
   .photograph-card {

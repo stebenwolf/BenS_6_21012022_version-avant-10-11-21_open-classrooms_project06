@@ -21,7 +21,7 @@ header .hashtag {
     content: "#";
 }
 
-.hashtag:hover {
+.hashtag:hover, .hashtag:hover a {
     cursor: pointer;
     background-color: $primary-red;
     color: white;
