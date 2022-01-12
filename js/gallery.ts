@@ -47,8 +47,10 @@ class GalleryOfPhotographs extends Gallery {
         const parameters = new URLSearchParams(document.location.search.substring(1));
         const profileID = parameters.get("id");
         const tag = parameters.get("tag");
-        
+        const allHashtags: Array<string> = [];
+
         // pour chaque élément de results, on créé un objet Photograph qui contient l'ensemble des informations dont on a besoin.
+                  
         for (const item of results) {
             const photograph = new Photograph(
                 item.id,
@@ -61,6 +63,13 @@ class GalleryOfPhotographs extends Gallery {
                 item.portrait
             );
 
+            // ici on fait la liste de tous les hashtags des photographes
+            for (const thatTag of item.tags) {
+                if (!allHashtags.includes(thatTag)) {
+                    allHashtags.push(thatTag);
+                }
+            }
+            
             if (type == "profile") {
                 if(item.id == +profileID) {
                     return photograph.createPhotographProfile();
@@ -71,12 +80,48 @@ class GalleryOfPhotographs extends Gallery {
                         photograph.createPhotographCard();
                     } else if (photograph.tags.includes(tag)) {
                         photograph.createPhotographCard();
+                        // si l'on veut mettre en valeur le tag actuellement sélectionné 
+                        /* const redTags = document.querySelectorAll(".hashtag");
+                        redTags.forEach(element => {
+                            if (element.textContent == tag) {
+                                element.className = "hashtag font-small hashtagHovered";
+                            }
+                        }) */
                     }
                 } else if (photograph.id === +profileID) {
                     photograph.createPhotographCard();
                 }
             }
         }
+        
+        // on va créer à présent la navigation qui sera intégrée sur la page d'accueil
+        const header = document.querySelector("header");
+        const nav = document.createElement("nav");
+        nav.setAttribute("aria-label", "photographer categories");
+        const navUl = document.createElement("ul");
+        let navLi;
+
+        for (const item of allHashtags) {
+            navLi = document.createElement("li");
+            if (item == tag) {
+                navLi.className = "hashtag font-small hashtagHovered";
+            } else {
+                navLi.className = "hashtag font-small";
+            }
+            const navLiLink = document.createElement("a");
+            
+            navLiLink.setAttribute("href","?tag="+item);
+            navLiLink.textContent = item.charAt(0).toUpperCase() + item.slice(1);
+            navLi.append(navLiLink);
+            navUl.append(navLi);
+        }
+        nav.append(navUl);
+
+        const h2title = document.createElement("h2");
+        h2title.className = 'red-font';
+        h2title.textContent = "Nos photographes";
+
+        header.append(nav, h2title);
     }
 
     // cette méthode doit retrouver, à partir d'un simple id, les infos relatives à un photographe et créer l'objet associé.
@@ -86,6 +131,7 @@ class GalleryOfPhotographs extends Gallery {
         type.displayGallery()
         let photograph: Photograph;
         
+        // on cherche le type de données 'photographes' et on créé pour chaque résultat un objet photographe contenant toutes les informations associées
         type.fetchDataAsync("photographers").then(results => {
             for(const item of results) {
                 if (item.id == id) {
@@ -201,15 +247,18 @@ class GalleryOfMedias extends Gallery {
 
         }
 
+        // ici on créé un bandeau visible sur desktop qui contient le nombre total de likes d'un photographe, ainsi que son TJ
         const bottomInfosLikes = document.getElementById("bottomInfosLikes");
         bottomInfosLikes.innerHTML = String(howManyLikes);
 
+        // on veut également que le nombre de likes augmente lorsqu'on like une photo
         const mediaLikes = document.querySelectorAll(".media-likes");
         let moreLikes = 0;
         mediaLikes.forEach((element, index) => {
             // on stocke le nombre de likes initial, de façon à limiter l'incrémentation à 1 même en cas de clics multiples
             const initialValue = +element.textContent;
             
+
             element.addEventListener("click", (event) => {
                 //console.log("clicked on "+element.previousElementSibling.textContent);
                 

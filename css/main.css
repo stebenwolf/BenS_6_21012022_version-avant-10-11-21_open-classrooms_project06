@@ -14,6 +14,10 @@ a {
   text-decoration: none;
 }
 
+a:visited {
+  color: #901C1C;
+}
+
 :root {
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
@@ -119,23 +123,20 @@ a {
   font-size: 0.7rem;
 }
 
-header .hashtag {
-  margin: 3px 0;
-}
-
 .hashtag::before {
   content: "#";
 }
 
-.hashtag:hover {
+.hashtag:hover, .hashtag:hover a, .hashtagHovered, .hashtagHovered a {
   cursor: pointer;
   background-color: #901C1C;
   color: white;
 }
 
-/* .hashtag::after {
-    content: "\00a0";
-} */
+.hashtagHovered {
+  color: white;
+}
+
 .gallery {
   width: 100%;
   display: -ms-grid;
@@ -174,6 +175,45 @@ header .hashtag {
 .media-likes {
   float: right;
   max-width: 30%;
+}
+
+.media-likes:active {
+  -webkit-animation: waow 0.15s steps(8, end) 0s 1 normal forwards;
+          animation: waow 0.15s steps(8, end) 0s 1 normal forwards;
+}
+
+@-webkit-keyframes waow {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  75% {
+    -webkit-transform: scale(1.8);
+            transform: scale(1.8);
+    font-weight: 600;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    font-weight: 600;
+  }
+}
+
+@keyframes waow {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  75% {
+    -webkit-transform: scale(1.8);
+            transform: scale(1.8);
+    font-weight: 600;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    font-weight: 600;
+  }
 }
 
 .media-likes::after, #bottomInfosLikes::after {
@@ -291,6 +331,14 @@ header .hashtag {
 }
 
 @media screen and (min-width: 700px) {
+  .bg-opacity > * {
+    -webkit-filter: opacity(0.5);
+            filter: opacity(0.5);
+  }
+  .bg-opacity--full > * {
+    -webkit-filter: opacity(0);
+            filter: opacity(0);
+  }
   .lightbox-modal {
     position: fixed;
     top: 50%;
@@ -305,14 +353,6 @@ header .hashtag {
     z-index: 10;
     -webkit-filter: opacity(1);
             filter: opacity(1);
-  }
-  .bg-opacity > * {
-    -webkit-filter: opacity(0.5);
-            filter: opacity(0.5);
-  }
-  .bg-opacity--full > * {
-    -webkit-filter: opacity(0);
-            filter: opacity(0);
   }
 }
 
@@ -606,6 +646,11 @@ select option::after {
   border: 1px solid yellow;
 }
 
+#form-modal input:focus, #form-modal textarea:focus {
+  border: none;
+  outline: 3px solid #901C1C;
+}
+
 @media screen and (max-width: 700px) {
   .photograph-profile {
     width: calc(95vw - 4%);
@@ -736,9 +781,8 @@ select option::after {
     display: flex;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     margin-top: 5%;
   }
   .photograph-card {

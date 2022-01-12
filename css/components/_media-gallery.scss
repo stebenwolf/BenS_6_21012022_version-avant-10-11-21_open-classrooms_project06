@@ -37,6 +37,25 @@
     max-width: 30%;
 }
 
+.media-likes:active {
+    animation: waow 0.15s steps(8, end) 0s 1 normal forwards;
+}
+
+@keyframes waow {
+    0% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.8);
+        font-weight: 600;
+    }
+    100% {
+        transform: scale(1);
+        font-weight: 600;
+    }
+    
+}
+
 .media-likes::after, #bottomInfosLikes::after {
     content: "\2665";
 }

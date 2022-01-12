@@ -59,7 +59,7 @@ class Photograph {
             for (let i=0; i<this.tags.length; i++) {
                 const tagsLiArticle = document.createElement("li");
                 tagsLiArticle.className = "hashtag font-small";
-                tagsLiArticle.innerHTML = this.tags[i];
+                tagsLiArticle.innerHTML = "<a href=\"?tag="+this.tags[i]+"\">"+this.tags[i]+"</a>";
                 tagsUlArticle.append(tagsLiArticle);
             }
   
@@ -120,7 +120,7 @@ class Photograph {
             for (let i=0; i<this.tags.length; i++) {
                 const tagsLiArticle = document.createElement("li");
                 tagsLiArticle.className = "hashtag font-small";
-                tagsLiArticle.innerHTML = this.tags[i];
+                tagsLiArticle.innerHTML = "<a href=\"index.html?tag="+this.tags[i]+"\">"+this.tags[i]+"</a>";
                 tagsUlArticle.append(tagsLiArticle);
             }
             contactArticle.className = "photograph-contact";
