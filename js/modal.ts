@@ -247,14 +247,14 @@ class Modal {
         });
         // idem, si on clique sur le bouton "Echap"
         if (mediaModalSection) {
-            body.addEventListener("keydown", handleEscape);
+            window.addEventListener("keydown", handleEscape);
         }
 
         function handleEscape(event: KeyboardEvent) {
             if (event.code === "Escape") {
                 mediaModalSection.remove();
                 body.removeAttribute("class");
-                body.removeEventListener("keydown", handleEscape);
+                window.removeEventListener("keydown", handleEscape);
             }
         }
 
