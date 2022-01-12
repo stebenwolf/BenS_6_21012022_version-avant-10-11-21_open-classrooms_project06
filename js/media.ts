@@ -47,8 +47,14 @@ class Media {
             } else {
                 mediaZone =  document.createElement("picture");
                 const imgZone = document.createElement("img");
-                imgZone.src = "./img/"+this.photographerId+"/"+this.image;
-                imgZone.loading = "lazy";
+                //imgZone.src = "./img/"+this.photographerId+"/"+this.image;
+                //imgZone.loading = "lazy";
+
+                // optimisation lazyload
+                imgZone.setAttribute("data-sizes","auto");
+                imgZone.setAttribute("data-src","./img/"+this.photographerId+"/"+this.image);
+                imgZone.className = "lazyload";
+
                 imgZone.alt = this.title;
                 mediaZone.append(imgZone);
             }

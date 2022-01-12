@@ -166,8 +166,15 @@ class Modal {
             mediaModalZone = document.createElement("picture");
             mediaModalZone.className = "mediaModaleZone--image";
             const mediaModalZoneImg = document.createElement("img");
-            mediaModalZoneImg.className = "shadow";
-            mediaModalZoneImg.src = "./img/"+media.photographerId+"/"+media.image;
+            //mediaModalZoneImg.className = "shadow";
+            //mediaModalZoneImg.src = "./img/"+media.photographerId+"/"+media.image;
+            //mediaModalZoneImg.loading = "lazy";
+
+            // optimisation lazyload
+            mediaModalZoneImg.setAttribute("data-sizes","auto");
+            mediaModalZoneImg.setAttribute("data-src","./img/"+media.photographerId+"/"+media.image);
+            mediaModalZoneImg.className = "shadow lazyload";
+            
             mediaModalZone.append(mediaModalZoneImg);
         }
         
