@@ -44,8 +44,8 @@ class GalleryOfPhotographs extends Gallery {
         // pour chaque élément de results, on créé un objet Photograph qui contient l'ensemble des informations dont on a besoin.
         for (const item of results) {
             const photograph = new Photograph(item.id, item.name, item.city, item.country, item.tags, item.tagline, item.price, item.portrait);
+            // ici on fait la liste de tous les hashtags des photographes
             for (const thatTag of item.tags) {
-                console.log(thatTag);
                 if (!allHashtags.includes(thatTag)) {
                     allHashtags.push(thatTag);
                 }
@@ -62,6 +62,13 @@ class GalleryOfPhotographs extends Gallery {
                     }
                     else if (photograph.tags.includes(tag)) {
                         photograph.createPhotographCard();
+                        // si l'on veut mettre en valeur le tag actuellement sélectionné 
+                        /* const redTags = document.querySelectorAll(".hashtag");
+                        redTags.forEach(element => {
+                            if (element.textContent == tag) {
+                                element.className = "hashtag font-small hashtagHovered";
+                            }
+                        }) */
                     }
                 }
                 else if (photograph.id === +profileID) {
@@ -69,12 +76,38 @@ class GalleryOfPhotographs extends Gallery {
                 }
             }
         }
+        // on va créer à présent la navigation qui sera intégrée sur la page d'accueil
+        const header = document.querySelector("header");
+        const nav = document.createElement("nav");
+        nav.setAttribute("aria-label", "photographer categories");
+        const navUl = document.createElement("ul");
+        let navLi;
+        for (const item of allHashtags) {
+            navLi = document.createElement("li");
+            if (item == tag) {
+                navLi.className = "hashtag font-small hashtagHovered";
+            }
+            else {
+                navLi.className = "hashtag font-small";
+            }
+            const navLiLink = document.createElement("a");
+            navLiLink.setAttribute("href", "?tag=" + item);
+            navLiLink.textContent = item.charAt(0).toUpperCase() + item.slice(1);
+            navLi.append(navLiLink);
+            navUl.append(navLi);
+        }
+        nav.append(navUl);
+        const h2title = document.createElement("h2");
+        h2title.className = 'red-font';
+        h2title.textContent = "Nos photographes";
+        header.append(nav, h2title);
     }
     // cette méthode doit retrouver, à partir d'un simple id, les infos relatives à un photographe et créer l'objet associé.
     createPhotograph(id) {
         const type = new GalleryOfPhotographs;
         type.displayGallery();
         let photograph;
+        // on cherche le type de données 'photographes' et on créé pour chaque résultat un objet photographe contenant toutes les informations associées
         type.fetchDataAsync("photographers").then(results => {
             for (const item of results) {
                 if (item.id == id) {

@@ -1,3 +1,4 @@
+
 .hashtag {
     color: $primary-red;
     border: 1px solid $intermediary-grey;
@@ -9,24 +10,16 @@
     font-size: 0.7rem;
 }
 
-.hashtag a, .hashtag a:visited {
-    color: $primary-red;
-}
-
-header .hashtag {
-    margin: 3px 0;
-}
-
 .hashtag::before {
     content: "#";
 }
 
-.hashtag:hover, .hashtag:hover a {
+.hashtag:hover, .hashtag:hover a, .hashtagHovered, .hashtagHovered a {
     cursor: pointer;
     background-color: $primary-red;
     color: white;
 }
 
-/* .hashtag::after {
-    content: "\00a0";
-} */
+.hashtagHovered {
+    color: white;
+}
