@@ -214,6 +214,7 @@ class GalleryOfMedias extends Gallery {
         // On efface ensuite le contenu déjà présent
         const gallerySection = document.querySelector(".gallery");
         gallerySection.innerHTML="";
+        gallerySection.setAttribute("role","tablist");
 
         // comme on souhaite connaître le nombre total de likes des photos, on va l'enregistrer dans une variable dédiée. 
         let howManyLikes = 0;
@@ -238,29 +239,42 @@ class GalleryOfMedias extends Gallery {
             // et pour chaque élément de la liste, on définit la valeur "likée" sur 0.
             hasBeenLiked.push(0);
             
-            media.createMedia();
+            media.createMedia().setAttribute("role","tab");
+            
             
             const mediaFigures = document.querySelectorAll(".media");
             mediaFigures.forEach(element => {
-                element.addEventListener("click", (event) => {
+                element.setAttribute("aria-posinset",String(i));
+                element.setAttribute("tabindex",String(0));
+
+                function openLightBox(event: Event) {
                     // si une modale est déjà ouverte, on la ferme
-                const lightbox = document.querySelector(".lightbox-modal");
-                if (lightbox) {
-                    lightbox.remove();
+                    const lightbox = document.querySelector(".lightbox-modal");
+                    if (lightbox) {
+                        lightbox.remove();
+                    }
+
+                    // puis on créé une modale ligthing modal
+                    const mediaModal = new Modal(list[i].photographerId);
+                    const modal = mediaModal.createMediaModal(list, i);
+
+                    // et on masque le fond de la page
+                    const body = document.querySelector("body");
+                    body.setAttribute("class", "bg-opacity--full");
+                    body.append(modal);
+                    event.stopImmediatePropagation();
                 }
 
-                // puis on créé une modale ligthing modal
-                const mediaModal = new Modal(list[i].photographerId);
-                const modal = mediaModal.createMediaModal(list, i);
-
-                // et on masque le fond de la page
-                const body = document.querySelector("body");
-                body.setAttribute("class", "bg-opacity--full");
-                body.append(modal);
-                event.stopImmediatePropagation();
-                })
+                element.addEventListener("click", openLightBox);
+                element.addEventListener(
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    "keydown", (event : any) => {
+                        if (event.code === "Enter") {
+                            openLightBox(event);
+                        }
+                    }
+                );
             });
-
         }
 
         // ici on créé un bandeau visible sur desktop qui contient le nombre total de likes d'un photographe, ainsi que son TJ
@@ -272,6 +286,7 @@ class GalleryOfMedias extends Gallery {
             })
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const bottomInfosLikes: HTMLElement | any = await getBottomInfos();
         bottomInfosLikes.innerHTML = "";
         bottomInfosLikes.insertAdjacentHTML("afterbegin",String(howManyLikes));

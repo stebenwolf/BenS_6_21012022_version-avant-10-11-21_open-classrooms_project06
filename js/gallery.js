@@ -171,6 +171,7 @@ class GalleryOfMedias extends Gallery {
         // On efface ensuite le contenu déjà présent
         const gallerySection = document.querySelector(".gallery");
         gallerySection.innerHTML = "";
+        gallerySection.setAttribute("role", "tablist");
         // comme on souhaite connaître le nombre total de likes des photos, on va l'enregistrer dans une variable dédiée. 
         let howManyLikes = 0;
         // on va également créer une liste, et pour chaque photo on enregistre si elle a été likée (1) ou non (0), puisqu'on ne peut liker une photo qu'une fois.
@@ -183,10 +184,12 @@ class GalleryOfMedias extends Gallery {
             howManyLikes += list[i].likes;
             // et pour chaque élément de la liste, on définit la valeur "likée" sur 0.
             hasBeenLiked.push(0);
-            media.createMedia();
+            media.createMedia().setAttribute("role", "tab");
             const mediaFigures = document.querySelectorAll(".media");
             mediaFigures.forEach(element => {
-                element.addEventListener("click", (event) => {
+                element.setAttribute("aria-posinset", String(i));
+                element.setAttribute("tabindex", String(0));
+                function openLightBox(event) {
                     // si une modale est déjà ouverte, on la ferme
                     const lightbox = document.querySelector(".lightbox-modal");
                     if (lightbox) {
@@ -200,6 +203,14 @@ class GalleryOfMedias extends Gallery {
                     body.setAttribute("class", "bg-opacity--full");
                     body.append(modal);
                     event.stopImmediatePropagation();
+                }
+                element.addEventListener("click", openLightBox);
+                element.addEventListener(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                "keydown", (event) => {
+                    if (event.code === "Enter") {
+                        openLightBox(event);
+                    }
                 });
             });
         }
@@ -211,6 +222,7 @@ class GalleryOfMedias extends Gallery {
                 }, 100);
             });
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const bottomInfosLikes = await getBottomInfos();
         bottomInfosLikes.innerHTML = "";
         bottomInfosLikes.insertAdjacentHTML("afterbegin", String(howManyLikes));

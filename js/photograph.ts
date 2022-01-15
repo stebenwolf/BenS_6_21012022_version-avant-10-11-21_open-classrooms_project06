@@ -190,6 +190,8 @@ class Photograph {
                 const body = document.querySelector("body");
                 body.setAttribute("class", "bg-opacity");
                 html.append(modal);
+
+                document.getElementById("inputFirst").focus();
             });
         }
     }
