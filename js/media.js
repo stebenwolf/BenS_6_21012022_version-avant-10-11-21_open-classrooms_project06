@@ -33,8 +33,12 @@ class Media {
             else {
                 mediaZone = document.createElement("picture");
                 const imgZone = document.createElement("img");
-                imgZone.src = "./img/" + this.photographerId + "/" + this.image;
-                imgZone.loading = "lazy";
+                //imgZone.src = "./img/"+this.photographerId+"/"+this.image;
+                //imgZone.loading = "lazy";
+                // optimisation lazyload
+                imgZone.setAttribute("data-sizes", "auto");
+                imgZone.setAttribute("data-src", "./img/" + this.photographerId + "/" + this.image);
+                imgZone.className = "lazyload";
                 imgZone.alt = this.title;
                 mediaZone.append(imgZone);
             }
@@ -43,7 +47,10 @@ class Media {
             mediaZone.className = "media";
             figureZone.setAttribute("id", String(this.id));
             // on intègre les données récupérées
-            mediaInfos.innerHTML = "<span class=\"media-title\">" + this.title + "</span><span class=\"media-likes\" aria-label=\"likes\">" + this.likes + "</span>";
+            mediaInfos.insertAdjacentHTML("afterbegin", "<span class=\"media-title\">" + this.title + "</span>");
+            mediaInfos.insertAdjacentHTML("beforeend", "<span class=\"media-likes\" aria-label=\"likes\">" + this.likes + "</span>");
+            /* const mediaLikes = document.querySelector(".media-likes");
+            mediaLikes.insertAdjacentHTML("beforeend", "<em class=\"hearts\">&#9825;</em>" ); */
             // on attache les éléments au bon endroit
             gallerySection.append(figureZone);
             figureZone.append(mediaZone, mediaInfos);

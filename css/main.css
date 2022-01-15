@@ -12,6 +12,7 @@ li {
 
 a {
   text-decoration: none;
+  color: #901C1C;
 }
 
 a:visited {
@@ -216,8 +217,16 @@ a:visited {
   }
 }
 
-.media-likes::after, #bottomInfosLikes::after {
+.hearts, #bottomInfosLikes::after {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#bottomInfosLikes::after {
   content: "\2665";
+}
+
+.hearts {
+  color: #901C1C;
 }
 
 #bottomInfos {

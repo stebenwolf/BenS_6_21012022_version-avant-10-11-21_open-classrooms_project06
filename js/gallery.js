@@ -27,10 +27,14 @@ class Gallery {
 class GalleryOfPhotographs extends Gallery {
     //Cette méthode prend en entrée un objet "Galerie de photographes", cherche les données correspondantes dans le fichier json, et appelle la fonction showThemAll.
     displayGallery() {
-        this.fetchDataAsync("photographers").then(results => this.showThem(results, "index"));
+        this.fetchDataAsync("photographers")
+            .then(results => this.showThem(results, "index"))
+            .catch(error => { console.log(error); });
     }
     displayInfos() {
-        this.fetchDataAsync("photographers").then(results => this.showThem(results, "profile"));
+        this.fetchDataAsync("photographers")
+            .then(results => this.showThem(results, "profile"))
+            .catch(error => { console.log(error); });
     }
     // Cette méthode prend en entrée le résultat de la requête asynchrone
     // et renvoie à partir de là l'ensemble des informations nécessaires à la réalisation :
@@ -108,7 +112,8 @@ class GalleryOfPhotographs extends Gallery {
         type.displayGallery();
         let photograph;
         // on cherche le type de données 'photographes' et on créé pour chaque résultat un objet photographe contenant toutes les informations associées
-        type.fetchDataAsync("photographers").then(results => {
+        type.fetchDataAsync("photographers")
+            .then(results => {
             for (const item of results) {
                 if (item.id == id) {
                     console.log("item trouvé!");
@@ -116,15 +121,18 @@ class GalleryOfPhotographs extends Gallery {
                 }
             }
             return photograph;
-        });
+        })
+            .catch(error => { console.log(error); });
     }
 }
 class GalleryOfMedias extends Gallery {
     //Cette méthode prend en entrée un objet "Galerie de médias", cherche les données correspondantes dans le fichier json, et appelle la fonction showThemAll.
     displayGallery() {
-        this.fetchDataAsync("media").then(results => {
+        this.fetchDataAsync("media")
+            .then(results => {
             this.showThemAll(results);
-        });
+        })
+            .catch(error => { console.log(error); });
     }
     // Cette méthode prend en entrée le résultat de la requête asynchrone
     // ...et renvoie à partir de ça l'ensemble des informations nécessaires, avec la condition "id page" = "id photographe"
@@ -143,7 +151,7 @@ class GalleryOfMedias extends Gallery {
         this.sortedList(list, selectTracker.value);
         selectTracker.addEventListener("change", () => this.showThemAll(results)); // Pour le event Listener, on relance cette méthode plutôt que la méthode "liste triée". A voir quel impact en termes de performance : les variables paramètres, profileID et la liste ne changent pas, seul l'ordre de la liste évolue.
     }
-    sortedList(list, sortingStyle) {
+    async sortedList(list, sortingStyle) {
         switch (sortingStyle) {
             case "popularity":
                 list = this.sortByLikes(list);
@@ -188,25 +196,79 @@ class GalleryOfMedias extends Gallery {
             });
         }
         // ici on créé un bandeau visible sur desktop qui contient le nombre total de likes d'un photographe, ainsi que son TJ
-        const bottomInfosLikes = document.getElementById("bottomInfosLikes");
-        bottomInfosLikes.innerHTML = String(howManyLikes);
+        const getBottomInfos = () => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(document.getElementById("bottomInfosLikes"));
+                }, 100);
+            });
+        };
+        const bottomInfosLikes = await getBottomInfos();
+        bottomInfosLikes.innerHTML = "";
+        bottomInfosLikes.insertAdjacentHTML("afterbegin", String(howManyLikes));
         // on veut également que le nombre de likes augmente lorsqu'on like une photo
         const mediaLikes = document.querySelectorAll(".media-likes");
         let moreLikes = 0;
         mediaLikes.forEach((element, index) => {
             // on stocke le nombre de likes initial, de façon à limiter l'incrémentation à 1 même en cas de clics multiples
-            const initialValue = +element.textContent;
-            element.addEventListener("click", (event) => {
-                //console.log("clicked on "+element.previousElementSibling.textContent);
-                element.innerHTML = String(initialValue + 1); // + 1;
+            const initialValue = list[index].likes;
+            element.innerHTML = initialValue + "<span class=\"hearts\">&#9825;</span>";
+            const iLikeThat = () => {
+                const myHeartIsFullOfLove = "<span class=\"hearts\">&#9829;</span>";
+                element.innerHTML = String(initialValue + 1) + myHeartIsFullOfLove;
                 hasBeenLiked[index] = 1;
-                event.stopImmediatePropagation();
                 moreLikes = hasBeenLiked.reduce((x, y) => x + y);
                 bottomInfosLikes.innerHTML = String(howManyLikes + moreLikes);
-            });
+                element.removeEventListener("click", iLikeThat);
+            };
+            element.addEventListener("click", iLikeThat);
+            /* => {
+                //console.log("clicked on "+element.previousElementSibling.textContent);
+               
+                element.innerHTML = String(initialValue + 1);
+                element.insertAdjacentHTML("beforeend", "<span class=\"hearts\">&#9829;</span>");// + 1;
+                hasBeenLiked[index] = 1;
+                        
+                moreLikes = hasBeenLiked.reduce((x: number, y: number) => x+y);
+                bottomInfosLikes.innerHTML = String(howManyLikes+moreLikes);
+            }); */
         });
         return list;
     }
+    /* async displayBottomInfos(howManyLikes: number, hasBeenLiked: number) {
+        const getBottomInfos = () => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(document.getElementById("bottomInfosLikes"));
+                }, 100);
+            })
+        }
+
+        const bottomInfosLikes: HTMLElement = await getBottomInfos();
+        bottomInfosLikes.innerHTML = "";
+        bottomInfosLikes.insertAdjacentHTML("afterbegin",String(howManyLikes));
+        
+        // on veut également que le nombre de likes augmente lorsqu'on like une photo
+        const mediaLikes = document.querySelectorAll(".media-likes");
+        let moreLikes = 0;
+
+        mediaLikes.forEach((element, index) => {
+            // on stocke le nombre de likes initial, de façon à limiter l'incrémentation à 1 même en cas de clics multiples
+            const initialValue = +element.textContent;
+            element.insertAdjacentHTML("beforeend", "<span class=\"hearts\">&#9825;</span>");
+                    
+            element.addEventListener("click", () => {
+                //console.log("clicked on "+element.previousElementSibling.textContent);
+                element.innerHTML = String(initialValue + 1);
+                element.insertAdjacentHTML("beforeend", "<span class=\"hearts\">&#9829;</span>");// + 1;
+                hasBeenLiked[index] = 1;
+                        
+                moreLikes = hasBeenLiked.reduce((x: number, y: number) => x+y);
+                bottomInfosLikes.innerHTML = String(howManyLikes+moreLikes);
+            });
+                    
+        });
+    } */
     // Pour les trois méthodes ci-dessous, on prend en paramètre une liste (celle des résultats de la requête JSON), et on renvoit la liste triée : soit par nombre de likes, soit par titre, soit par date.
     // source : https://stackoverflow.com/a/19326174/15450868
     // inorganik

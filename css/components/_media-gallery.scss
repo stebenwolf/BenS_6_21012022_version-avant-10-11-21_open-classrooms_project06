@@ -56,8 +56,16 @@
     
 }
 
-.media-likes::after, #bottomInfosLikes::after {
+.hearts, #bottomInfosLikes::after {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#bottomInfosLikes::after {
     content: "\2665";
+}
+
+.hearts {
+    color: $primary-red;
 }
 
 #bottomInfos {
