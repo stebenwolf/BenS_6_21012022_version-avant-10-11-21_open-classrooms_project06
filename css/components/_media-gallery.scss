@@ -44,9 +44,10 @@
 @keyframes waow {
     0% {
         transform: scale(1);
+        font-weight: 400;
     }
     75% {
-        transform: scale(1.8);
+        /* transform: scale(1.8); */
         font-weight: 600;
     }
     100% {

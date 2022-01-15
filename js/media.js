@@ -9,6 +9,7 @@ class Media {
         this.date = date;
         this.price = price;
     }
+    // cette méthode va créer un media, c'est-à-dire un bloc affiché sur la page photographe, constitué d'une figure (image ou vidéo) et d'une légende -la légende contenant le titre de la photo et le nombre de likes de la photo.
     createMedia() {
         if (document.querySelector(".gallery")) {
             // on sélectionne le conteneur
@@ -24,33 +25,29 @@ class Media {
                 mediaZone.setAttribute("height", "150px");
                 mediaZone.setAttribute("preload", "none");
                 mediaZone.setAttribute("poster", "./img/" + this.photographerId + "/poster/" + this.image + ".jpg");
-                //poster="one-does-not-simply-placeholder.jpg"")
                 const videoSourceZone = document.createElement("source");
                 videoSourceZone.type = "video/mp4";
                 videoSourceZone.src = "./img/" + this.photographerId + "/" + this.image;
                 mediaZone.append(videoSourceZone);
+                mediaZone.className = "media shadow";
             }
             else {
                 mediaZone = document.createElement("picture");
                 const imgZone = document.createElement("img");
-                //imgZone.src = "./img/"+this.photographerId+"/"+this.image;
-                //imgZone.loading = "lazy";
                 // optimisation lazyload
                 imgZone.setAttribute("data-sizes", "auto");
                 imgZone.setAttribute("data-src", "./img/" + this.photographerId + "/" + this.image);
-                imgZone.className = "lazyload";
+                imgZone.className = "lazyload shadow";
                 imgZone.alt = this.title;
+                mediaZone.className = "media";
                 mediaZone.append(imgZone);
             }
             // on créé les classes et propriétés associées
             figureZone.className = "vignette";
-            mediaZone.className = "media";
             figureZone.setAttribute("id", String(this.id));
-            // on intègre les données récupérées
+            // on intègre les données récupérées  
             mediaInfos.insertAdjacentHTML("afterbegin", "<span class=\"media-title\">" + this.title + "</span>");
             mediaInfos.insertAdjacentHTML("beforeend", "<span class=\"media-likes\" aria-label=\"likes\">" + this.likes + "</span>");
-            /* const mediaLikes = document.querySelector(".media-likes");
-            mediaLikes.insertAdjacentHTML("beforeend", "<em class=\"hearts\">&#9825;</em>" ); */
             // on attache les éléments au bon endroit
             gallerySection.append(figureZone);
             figureZone.append(mediaZone, mediaInfos);

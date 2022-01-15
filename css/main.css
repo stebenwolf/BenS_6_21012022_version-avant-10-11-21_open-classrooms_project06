@@ -187,10 +187,10 @@ a:visited {
   0% {
     -webkit-transform: scale(1);
             transform: scale(1);
+    font-weight: 400;
   }
   75% {
-    -webkit-transform: scale(1.8);
-            transform: scale(1.8);
+    /* transform: scale(1.8); */
     font-weight: 600;
   }
   100% {
@@ -204,10 +204,10 @@ a:visited {
   0% {
     -webkit-transform: scale(1);
             transform: scale(1);
+    font-weight: 400;
   }
   75% {
-    -webkit-transform: scale(1.8);
-            transform: scale(1.8);
+    /* transform: scale(1.8); */
     font-weight: 600;
   }
   100% {

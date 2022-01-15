@@ -151,7 +151,10 @@ class GalleryOfMedias extends Gallery {
         this.sortedList(list, selectTracker.value);
         selectTracker.addEventListener("change", () => this.showThemAll(results)); // Pour le event Listener, on relance cette méthode plutôt que la méthode "liste triée". A voir quel impact en termes de performance : les variables paramètres, profileID et la liste ne changent pas, seul l'ordre de la liste évolue.
     }
+    // cette méthode prend en entrée une liste de médias (extraite du fichier JSON) et un mode de tri (obtenu via le menu déroulant). Elle renvoie la liste médias triée
+    // la méthode est asynchrone car on souhaite que l'ensemble des calculs aient été effectués, notamment au niveau du nombre total de likes.
     async sortedList(list, sortingStyle) {
+        //on commence par identifier le type de liste qu'on souhaite afficher : par nombre de likes, par date de prise de vue, ou par nom (ordre alphabétique)
         switch (sortingStyle) {
             case "popularity":
                 list = this.sortByLikes(list);
@@ -165,15 +168,20 @@ class GalleryOfMedias extends Gallery {
             default:
                 console.error("Erreur lors du tri.");
         }
-        // On efface le contenu déjà présent
+        // On efface ensuite le contenu déjà présent
         const gallerySection = document.querySelector(".gallery");
         gallerySection.innerHTML = "";
+        // comme on souhaite connaître le nombre total de likes des photos, on va l'enregistrer dans une variable dédiée. 
         let howManyLikes = 0;
+        // on va également créer une liste, et pour chaque photo on enregistre si elle a été likée (1) ou non (0), puisqu'on ne peut liker une photo qu'une fois.
         const hasBeenLiked = [];
         // Pour chaque élément de la liste, on créé l'objet associé
         for (let i = 0; i < list.length; i++) {
+            // on créé notre objet Media avec les informations nécessaires
             const media = new Media(list[i].id, list[i].photographerId, list[i].title, list[i].image, list[i].tags, list[i].likes, list[i].date, list[i].price);
+            // le nombre total de likes est calculé au fur et à mesure
             howManyLikes += list[i].likes;
+            // et pour chaque élément de la liste, on définit la valeur "likée" sur 0.
             hasBeenLiked.push(0);
             media.createMedia();
             const mediaFigures = document.querySelectorAll(".media");
@@ -214,61 +222,19 @@ class GalleryOfMedias extends Gallery {
             const initialValue = list[index].likes;
             element.innerHTML = initialValue + "<span class=\"hearts\">&#9825;</span>";
             const iLikeThat = () => {
-                const myHeartIsFullOfLove = "<span class=\"hearts\">&#9829;</span>";
-                element.innerHTML = String(initialValue + 1) + myHeartIsFullOfLove;
-                hasBeenLiked[index] = 1;
-                moreLikes = hasBeenLiked.reduce((x, y) => x + y);
-                bottomInfosLikes.innerHTML = String(howManyLikes + moreLikes);
-                element.removeEventListener("click", iLikeThat);
+                if (hasBeenLiked[index] == 0) {
+                    const myHeartIsFullOfLove = "<span class=\"hearts\">&#9829;</span>";
+                    element.innerHTML = String(initialValue + 1) + myHeartIsFullOfLove;
+                    hasBeenLiked[index] = 1;
+                    moreLikes = hasBeenLiked.reduce((x, y) => x + y);
+                    bottomInfosLikes.innerHTML = String(howManyLikes + moreLikes);
+                    element.removeEventListener("click", iLikeThat);
+                }
             };
             element.addEventListener("click", iLikeThat);
-            /* => {
-                //console.log("clicked on "+element.previousElementSibling.textContent);
-               
-                element.innerHTML = String(initialValue + 1);
-                element.insertAdjacentHTML("beforeend", "<span class=\"hearts\">&#9829;</span>");// + 1;
-                hasBeenLiked[index] = 1;
-                        
-                moreLikes = hasBeenLiked.reduce((x: number, y: number) => x+y);
-                bottomInfosLikes.innerHTML = String(howManyLikes+moreLikes);
-            }); */
         });
         return list;
     }
-    /* async displayBottomInfos(howManyLikes: number, hasBeenLiked: number) {
-        const getBottomInfos = () => {
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    resolve(document.getElementById("bottomInfosLikes"));
-                }, 100);
-            })
-        }
-
-        const bottomInfosLikes: HTMLElement = await getBottomInfos();
-        bottomInfosLikes.innerHTML = "";
-        bottomInfosLikes.insertAdjacentHTML("afterbegin",String(howManyLikes));
-        
-        // on veut également que le nombre de likes augmente lorsqu'on like une photo
-        const mediaLikes = document.querySelectorAll(".media-likes");
-        let moreLikes = 0;
-
-        mediaLikes.forEach((element, index) => {
-            // on stocke le nombre de likes initial, de façon à limiter l'incrémentation à 1 même en cas de clics multiples
-            const initialValue = +element.textContent;
-            element.insertAdjacentHTML("beforeend", "<span class=\"hearts\">&#9825;</span>");
-                    
-            element.addEventListener("click", () => {
-                //console.log("clicked on "+element.previousElementSibling.textContent);
-                element.innerHTML = String(initialValue + 1);
-                element.insertAdjacentHTML("beforeend", "<span class=\"hearts\">&#9829;</span>");// + 1;
-                hasBeenLiked[index] = 1;
-                        
-                moreLikes = hasBeenLiked.reduce((x: number, y: number) => x+y);
-                bottomInfosLikes.innerHTML = String(howManyLikes+moreLikes);
-            });
-                    
-        });
-    } */
     // Pour les trois méthodes ci-dessous, on prend en paramètre une liste (celle des résultats de la requête JSON), et on renvoit la liste triée : soit par nombre de likes, soit par titre, soit par date.
     // source : https://stackoverflow.com/a/19326174/15450868
     // inorganik
