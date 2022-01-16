@@ -24,6 +24,7 @@ class Modal {
         const contactModalInputFirst = document.createElement("input");
         contactModalInputFirst.type = "text";
         contactModalInputFirst.setAttribute("aria-labelledby", "Prénom");
+        contactModalInputFirst.id = "inputFirst";
         const contactModalLabelLast = document.createElement("label");
         contactModalLabelLast.setAttribute("for", "lastname");
         contactModalLabelLast.id = "Nom";
@@ -58,7 +59,7 @@ class Modal {
             body.removeAttribute("class");
         });
         const body = document.querySelector("body");
-        body.addEventListener("keydown", (event) => {
+        window.addEventListener("keydown", (event) => {
             if (event.code === "Escape") {
                 contactModalSection.remove();
                 body.removeAttribute("class");

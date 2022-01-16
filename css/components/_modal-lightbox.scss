@@ -1,0 +1,140 @@
+.bg-opacity > * {
+    filter: opacity(0.5);
+}
+
+.bg-opacity--full > * {
+    filter: opacity(0);
+}
+
+.hidden {
+    display: none;
+}
+
+.lightbox-modal {
+    z-index: 10;
+    filter: opacity(1);
+    background-color: white;
+}
+
+.media-modal--figure {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#mediaModalZone {
+    display: flex;
+    justify-content: center;
+}
+
+.media-modal--figure img, .media-modal--figure video {
+    max-width: 80%;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+@media screen and (min-width: $breakpoint) {
+
+    .lightbox-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70vw;
+        height: 80vh;
+        display: flex;
+    }
+
+    .media-modal--figure {
+        align-items: center;
+    }
+
+    #mediaModalZone {
+        align-self: flex-end;
+    }
+
+    .media-modal--figcaption {
+        width: 80%;
+        color: $primary-red;
+        font-size: 1.2rem;
+        text-align: left;
+    }
+
+    .mediaControl {
+        position: absolute;
+        font-size: 3rem;
+        color: $primary-red;
+        cursor: pointer;
+        padding: 15px;
+    }
+
+    .nextMedia, .previousMedia {
+        top: 45%;
+        transform: translateY(-50%);
+    }
+    .previousMedia {
+        left: 0;
+    }
+    .nextMedia {
+        right: 0;
+    }
+    .closeMedia {
+        top : 0;
+        right: 0;
+    }
+}
+
+@media screen and (max-width: $breakpoint) {
+    .lightbox-modal {
+        position: sticky;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .media-modal--figure {
+        height: 100%;
+        align-content: center;
+    }
+
+    .media-modal--figcaption {
+        width: 80%;
+        color: $primary-red;
+        font-size: 1.1rem;
+        text-align: left;
+        padding: 20px 0;
+    }
+
+    #mediaModalZone {
+        align-items: center;
+    }
+
+
+
+    .mediaControl {
+        position: absolute;
+        font-size: 2rem;
+        color: $primary-red;
+        cursor: pointer;
+        padding: 15px;
+    }
+
+    .nextMedia, .previousMedia {
+        top: 45%;
+        transform: translateY(-50%);
+    }
+    .previousMedia {
+        left: 0;
+    }
+    .nextMedia {
+        right: 0;
+    }
+    .closeMedia {
+        top : 0;
+        right: 0;
+    }
+}

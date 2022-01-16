@@ -167,9 +167,10 @@ class Photograph {
                     );
                         divNameArticle.append(
                             titleArticle,
-                            buttonArticle
+                            
                         );
                         tagsArticle.append(tagsUlArticle);
+                        contactArticle.append(buttonArticle);
 
                     picArticle.append(pictureArticle);
                         pictureArticle.append(imgArticle);
@@ -190,6 +191,8 @@ class Photograph {
                 const body = document.querySelector("body");
                 body.setAttribute("class", "bg-opacity");
                 html.append(modal);
+
+                document.getElementById("inputFirst").focus();
             });
         }
     }
