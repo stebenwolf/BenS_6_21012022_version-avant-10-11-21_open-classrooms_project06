@@ -39,7 +39,7 @@
 
     .photograph-profile {
         background-color: $light-grey;
-        margin: 0 20px;
+        margin: 0 20px 20px 20px;
         padding: 1% 5%;
         width: calc(100% - 40px - 10%); 
         display: flex;
@@ -48,11 +48,23 @@
 
     .photograph-pres {
         width: 100%;
-        display: flex;
-        justify-content: space-between;
-        //outline: 2px solid blue;
+        display: grid;
+        grid-column-gap: 10px;
+        grid-template-columns: 2fr 1fr 2fr;
+        -ms-grid-columns: none;
+        grid-auto-rows: minmax(100px, auto);
     }
-    
+
+    .photograph-pic {
+        display: flex;
+        justify-content: end;
+    }
+
+    .photograph-contact {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
     
 }
 
@@ -64,16 +76,6 @@
 
 .tagline {
     color: $grey;
-}
-
-.photograph-contact {
-    display: flex;
-    justify-content:left;
-    align-items: flex-start;
-}
-
-.photograph-description {
-    width: 67%;
 }
 
 .photograph-profile h1 {

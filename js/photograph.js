@@ -120,8 +120,9 @@ class Photograph {
             photoSection.append(photoArticle);
             photoArticle.append(divArticle, contactArticle, picArticle);
             divArticle.append(divNameArticle, pLocationArticle, pTaglineArticle, tagsArticle);
-            divNameArticle.append(titleArticle, buttonArticle);
+            divNameArticle.append(titleArticle);
             tagsArticle.append(tagsUlArticle);
+            contactArticle.append(buttonArticle);
             picArticle.append(pictureArticle);
             pictureArticle.append(imgArticle);
             pictureArticle.append(imgArticle);

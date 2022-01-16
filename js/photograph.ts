@@ -167,9 +167,10 @@ class Photograph {
                     );
                         divNameArticle.append(
                             titleArticle,
-                            buttonArticle
+                            
                         );
                         tagsArticle.append(tagsUlArticle);
+                        contactArticle.append(buttonArticle);
 
                     picArticle.append(pictureArticle);
                         pictureArticle.append(imgArticle);
