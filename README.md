@@ -3,11 +3,15 @@
 (Version avant le 10-11-2021)
 
 Création "from scratch" d'une plateforme accessible pour photographes.
+
 Site responsive, optimisé pour affichage sur mobile et desktop.
+
 Langages utilisés : HTML, CSS (Sass), JavaScript (TypeScript)
+
 Données récupérées à partir d'un fichier JSON fourni.
 
 Démo live du site à l'adresse : https://stebenwolf.github.io/BenS_6_21012022_version-avant-10-11-21_open-classrooms_project06/index.html
+
 
 ## Page d'accueil
 
