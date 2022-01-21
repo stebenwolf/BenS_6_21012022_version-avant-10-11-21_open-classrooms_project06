@@ -142,6 +142,7 @@ class Photograph {
             const bottomInfosTJ = document.createElement("span");
 
             bottomInfos.id = "bottomInfos";
+            bottomInfos.setAttribute("role","region");
             bottomInfosLikes.id = "bottomInfosLikes";
             bottomInfosTJ.id = "bottomInfosTJ";
 

@@ -69,7 +69,7 @@ class Media {
                         
             // on intègre les données récupérées  
             mediaInfos.insertAdjacentHTML("afterbegin","<span class=\"media-title\">"+this.title+"</span>");
-            mediaInfos.insertAdjacentHTML("beforeend", "<span class=\"media-likes\" aria-label=\"likes\">"+this.likes+"</span>");
+            mediaInfos.insertAdjacentHTML("beforeend", "<span class=\"media-likes\">"+this.likes+"</span>");
             
             // on attache les éléments au bon endroit
             gallerySection.append(figureZone);

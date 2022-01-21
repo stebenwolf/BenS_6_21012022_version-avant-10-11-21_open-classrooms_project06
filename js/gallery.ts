@@ -214,7 +214,7 @@ class GalleryOfMedias extends Gallery {
         // On efface ensuite le contenu déjà présent
         const gallerySection = document.querySelector(".gallery");
         gallerySection.innerHTML="";
-        gallerySection.setAttribute("role","tablist");
+        gallerySection.setAttribute("role","group");
 
         // comme on souhaite connaître le nombre total de likes des photos, on va l'enregistrer dans une variable dédiée. 
         let howManyLikes = 0;
@@ -239,7 +239,7 @@ class GalleryOfMedias extends Gallery {
             // et pour chaque élément de la liste, on définit la valeur "likée" sur 0.
             hasBeenLiked.push(0);
             
-            media.createMedia().setAttribute("role","tab");
+            media.createMedia().setAttribute("role","figure");
             
             
             const mediaFigures = document.querySelectorAll(".media");

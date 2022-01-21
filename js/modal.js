@@ -14,6 +14,7 @@ class Modal {
         contactModalHeader.id = "Contactez-moi " + name;
         const modalClose = document.createElement("span");
         modalClose.className = "contact-modal--close";
+        modalClose.setAttribute("ariaKeyShortcuts", "Escape");
         const contactModalForm = document.createElement("form");
         contactModalForm.id = "contact-modal";
         contactModalForm.target = "_self";
@@ -23,6 +24,7 @@ class Modal {
         contactModalLabelFirst.innerHTML = "Prénom<br>";
         const contactModalInputFirst = document.createElement("input");
         contactModalInputFirst.type = "text";
+        contactModalInputFirst.setAttribute("aria-label", "Prénom");
         contactModalInputFirst.setAttribute("aria-labelledby", "Prénom");
         contactModalInputFirst.id = "inputFirst";
         const contactModalLabelLast = document.createElement("label");
@@ -41,12 +43,15 @@ class Modal {
         contactModalInputEmail.setAttribute("aria-labelledby", "Email");
         const contactModalLabelMessage = document.createElement("label");
         contactModalLabelMessage.setAttribute("for", "message");
-        contactModalLabelMessage.id = "Votre message";
+        contactModalLabelMessage.id = "VotreMessage";
         contactModalLabelMessage.innerHTML = "Votre message<br>";
         const contactModalTextareaMessage = document.createElement("textarea");
-        contactModalTextareaMessage.setAttribute("aria-labelledby", "Votre message");
+        contactModalTextareaMessage.setAttribute("aria-labelledby", "VotreMessage");
+        contactModalTextareaMessage.setAttribute("aria-label", "Message");
         const contactModalButton = document.createElement("button");
+        contactModalButton.setAttribute("role", "button");
         contactModalButton.setAttribute("aria-label", "Envoyer");
+        contactModalButton.setAttribute("ariaKeyShortcuts", "Enter");
         contactModalButton.className = "btn-contact btn-contact-send";
         contactModalButton.type = "submit";
         contactModalButton.textContent = "Envoyer";
@@ -95,6 +100,9 @@ class Modal {
         let mediaModalZone;
         const modalClose = document.createElement("span");
         modalClose.className = "mediaControl closeMedia";
+        modalClose.setAttribute("ariaKeyShortcuts", "Escape");
+        modalClose.setAttribute("role", "button");
+        modalClose.setAttribute("aria-label", "Close");
         if (media.image.includes(".mp4")) {
             mediaModalZone = document.createElement("video");
             mediaModalZone.className = "mediaModalZone--video shadow";
@@ -115,6 +123,7 @@ class Modal {
             mediaModalZoneImg.setAttribute("data-sizes", "auto");
             mediaModalZoneImg.setAttribute("data-src", "./img/" + media.photographerId + "/" + media.image);
             mediaModalZoneImg.className = "shadow lazyload";
+            mediaModalZoneImg.alt = "Photo ayant pour titre : " + media.title;
             mediaModalZone.append(mediaModalZoneImg);
         }
         mediaModalZone.id = "mediaModalZone";
@@ -132,8 +141,11 @@ class Modal {
         if (previousMedia) {
             const previousMediaLink = document.createElement("p");
             previousMediaLink.innerHTML = "<";
+            previousMediaLink.setAttribute("ariaKeyShortcuts", "ArrowLeft");
             //previousMediaLink.id = "previousMedia";
             previousMediaLink.className = "mediaControl previousMedia";
+            previousMediaLink.setAttribute("role", "button");
+            previousMediaLink.setAttribute("aria-label", "Précédent");
             // on ajoute un event listener: au clic, on supprime la modale actuelle et on la remplace par la modale précédente
             previousMediaLink.addEventListener("click", () => {
                 const lightbox = document.getElementById("lightbox");
@@ -154,6 +166,7 @@ class Modal {
         if (nextMedia) {
             const nextMediaLink = document.createElement("p");
             nextMediaLink.innerHTML = ">";
+            nextMediaLink.setAttribute("ariaKeyShortcuts", "ArrowRight");
             nextMediaLink.className = "mediaControl nextMedia";
             // on ajoute un event listener: au clic, on supprime la première modale et on la remplace par la modale suivante
             nextMediaLink.addEventListener("click", () => {
