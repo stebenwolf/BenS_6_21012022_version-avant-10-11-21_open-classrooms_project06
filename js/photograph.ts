@@ -99,7 +99,7 @@ class Photograph {
             const divNameArticle = document.createElement("div");
             const titleArticle = document.createElement("h1");
             const buttonArticle = document.createElement("button");
-            const pLocationArticle = document.createElement("p");
+            const pLocationArticle = document.createElement("h2");
             const pTaglineArticle = document.createElement("p");
             const tagsArticle = document.createElement("div");
             const tagsUlArticle = document.createElement("ul");

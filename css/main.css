@@ -82,6 +82,7 @@ a:visited {
 
 .location {
   color: #901C1C;
+  font-weight: 400;
 }
 
 .price {
