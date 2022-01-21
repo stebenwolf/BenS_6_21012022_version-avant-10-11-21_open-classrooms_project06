@@ -29,6 +29,7 @@ class Media {
                 videoSourceZone.type = "video/mp4";
                 videoSourceZone.src = "./img/" + this.photographerId + "/" + this.image;
                 mediaZone.append(videoSourceZone);
+                mediaZone.setAttribute("alt", this.title);
                 mediaZone.className = "media shadow";
             }
             else {
@@ -38,7 +39,7 @@ class Media {
                 imgZone.setAttribute("data-sizes", "auto");
                 imgZone.setAttribute("data-src", "./img/" + this.photographerId + "/" + this.image);
                 imgZone.className = "lazyload shadow";
-                imgZone.alt = this.title;
+                imgZone.alt = "Photo ayant pour titre : " + this.title;
                 mediaZone.className = "media";
                 mediaZone.append(imgZone);
             }

@@ -46,6 +46,7 @@ class Media {
                 videoSourceZone.src = "./img/"+this.photographerId+"/"+this.image;
                 
                 mediaZone.append(videoSourceZone);
+                mediaZone.setAttribute("alt",this.title);
                 mediaZone.className = "media shadow";
             } else {
                 mediaZone =  document.createElement("picture");
@@ -56,7 +57,7 @@ class Media {
                 imgZone.setAttribute("data-src","./img/"+this.photographerId+"/"+this.image);
                 imgZone.className = "lazyload shadow";
 
-                imgZone.alt = this.title;
+                imgZone.alt = "Photo ayant pour titre : "+this.title;
                 mediaZone.className = "media";
                 mediaZone.append(imgZone);
             }
