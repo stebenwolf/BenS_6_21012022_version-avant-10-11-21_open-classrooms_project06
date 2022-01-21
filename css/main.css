@@ -176,6 +176,7 @@ a:visited {
 .media-likes {
   float: right;
   max-width: 30%;
+  cursor: pointer;
 }
 
 .media-likes:active {
